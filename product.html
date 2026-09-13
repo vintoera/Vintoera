@@ -11,8 +11,9 @@
 </head>
 <body>
 	<header class="site-header">
-		<a class="brand" href="index.html" aria-label="Vintoera home">vintoera<span>.</span></a>
+		<a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
 		<a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to collection</a>
+		<button class="cart-button" id="product-cart-count" type="button" aria-label="Shopping cart" onclick="window.location.href='checkout.html'"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge">0</span></button>
 	</header>
 	<main class="detail-page">
 		<a class="breadcrumb" href="index.html">Collection / <span id="crumb-name">Anti-Tarnish Chain</span></a>
@@ -22,32 +23,56 @@
 				<p class="eyebrow">The Vintoera edit</p>
 				<h1 id="product-name">Anti-Tarnish Chain</h1>
 				<p class="detail-price" id="product-price">₹250</p>
-				<div class="variant-picker" id="chain-variants" hidden>
-					<p class="variant-label">Choose your chain</p>
+				<div class="variant-picker" id="model-variants" hidden>
+					<p class="variant-label">Choose your model</p>
 					<div class="variant-options" id="variant-options"></div>
 				</div>
 				<div class="rule"></div>
 				<p id="product-description">A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.</p>
 				<ul class="details-list"><li>Premium anti-tarnish finish</li><li>Skin-friendly and nickel-free</li><li>Made for everyday wear</li></ul>
+				<div class="quantity-picker" aria-label="Quantity">
+					<button type="button" id="quantity-decrease" aria-label="Decrease quantity">−</button>
+					<span id="quantity-value">1</span>
+					<button type="button" id="quantity-increase" aria-label="Increase quantity">+</button>
+				</div>
+				<button class="button cart-add-detail" id="add-to-cart" type="button">Add to cart</button>
 				<a class="button whatsapp-button" id="whatsapp-link" href="https://wa.me/917708564234" target="_blank" rel="noreferrer"><span aria-hidden="true">◌</span> Order on WhatsApp</a>
-				<a class="instagram-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">See more from Vintoera on Instagram <span aria-hidden="true">↗</span></a>
+				<a class="instagram-link" href="https://www.instagram.com/vintoera?stkn=NDZ3bmsxb2o0eTZz" target="_blank" rel="noreferrer">See more from Vintoera on Instagram <span aria-hidden="true">↗</span></a>
 			</div>
 		</section>
 	</main>
 	<script>
 		const products = {
 			chain: { name: 'Anti-Tarnish Chain', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
-			hoops: { name: 'Sculpted Hoops', price: '₹350', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85', description: 'A softly sculpted pair that brings just the right amount of shine to your day. Comfortable enough for long lunches and late nights.' },
-			pearl: { name: 'Pearl Drop Necklace', price: '₹450', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85', description: 'A modern pearl detail on a fine gold chain. A quietly special piece for everyday dressing and moments worth remembering.' },
-			'resin-chain': { name: 'Resin Art Chain', price: '₹350', image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=85', description: 'A one-of-a-kind resin art chain, handmade in small batches with playful colour and a glossy finish.' },
-			'resin-bracelet': { name: 'Resin Art Bracelet', price: '₹300', image: 'https://images.unsplash.com/photo-1573408301185-9146fe634d8a?auto=format&fit=crop&w=1200&q=85', description: 'A lightweight handmade bracelet that adds a bright resin detail to your everyday stack.' },
-			'resin-keychain': { name: 'Resin Art Keychain', price: '₹200', image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&w=1200&q=85', description: 'A cheerful handmade resin keychain to personalise your keys, bag, or gifting moments.' },
-			'car-frame': { name: 'Resin Car Frame', price: '₹550', image: 'https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1200&q=85', description: 'A personalised decorative car frame made to bring colour and character to your drive.' },
+			chain: { name: 'Signature Chain Collection', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
+			'phone-charms': { name: 'Phone Charms', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg', description: 'Playful handmade phone charms with colourful beads and cheerful shapes. Choose the model that feels most like you.', variants: [
+				{ name: 'Pastel Stars', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg' },
+				{ name: 'Flower Garden', price: '₹119', image: 'PXL_20260913_131656839.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Rainbow Stars', price: '₹119', image: 'PXL_20260913_131606869.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Pink & Green Stars', price: '₹119', image: 'PXL_20260913_131501818.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Sweet Hearts', price: '₹119', image: 'PXL_20260913_131354137.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Colourful Flowers', price: '₹119', image: 'PXL_20260913_131244495.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Butterfly Garden', price: '₹119', image: 'PXL_20260913_131148173.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Lemon Hearts', price: '₹119', image: 'PXL_20260913_131035865.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Heart & Flower', price: '₹119', image: 'PXL_20260913_130949450.PORTRAIT.ORIGINAL.jpg' },
+				{ name: 'Soft Blue Hearts', price: '₹119', image: 'PXL_20260913_130838216.jpg' }
+			] },
+			pearl: { name: 'Lunova Chain Collection', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'A refined collection of preserved-flower resin chains designed to bring colour and character to everyday dressing.' },
+			'resin-chain': { name: 'Earring Collection', price: '₹350', image: 'Earring collection image.jpg', description: 'A playful earring collection with colourful detail and a glossy finish, made for everyday styling.' },
+			'resin-bracelet': { name: 'Lunova Bracelet Collection', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'A lightweight handmade bracelet with a refined resin detail, designed to add a little colour to your everyday stack.' },
+			'resin-keychain': { name: 'Keychain', price: '₹200', image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&w=1200&q=85', description: 'A cheerful handmade keychain to personalise your keys, bag, or gifting moments.' },
+			'car-frame': { name: '3D Car Frame', price: '₹550', image: 'https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1200&q=85', description: 'A personalised 3D car frame made to bring colour and character to your drive.' },
 			'home-accessory': { name: 'Home Little Accessory', price: '₹250', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=85', description: 'A small handmade accent for your home, designed to make everyday corners feel more personal.' },
-			'boys-earrings': { name: "Boys' Earrings", price: '₹180', image: 'https://images.unsplash.com/photo-1627293509201-cd7f2d2e1c52?auto=format&fit=crop&w=1200&q=85', description: 'Simple, comfortable earrings with a clean look for everyday styling.' },
-			'bracelet-chain': { name: 'Bracelet Chain', price: '₹300', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85', description: 'A versatile bracelet chain that works beautifully on its own or layered with your favourite pieces.' }
+			'boys-earrings': { name: "Men's Collection", price: '₹180', image: 'Men accessories front image.jpg', description: 'A considered men’s collection with clean, comfortable pieces for everyday styling.' },
+			'bracelet-chain': { name: 'Hand charms', price: '₹300', image: 'Hand charm image.jpg', description: 'A versatile hand charm collection designed to add a playful detail to your everyday look.' }
 		};
 		const product = products[new URLSearchParams(window.location.search).get('product')] || products.chain;
+		const productImage = document.getElementById('product-image');
+		const fallbackImage = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 700 760%22%3E%3Crect width=%22700%22 height=%22760%22 fill=%22%23f7eee8%22/%3E%3Ccircle cx=%22350%22 cy=%22125%22 r=%2260%22 fill=%22none%22 stroke=%22%23eaa7bd%22 stroke-width=%2224%22/%3E%3Cpath d=%22M350 185v70c0 90-120 110-120 220s120 120 120 205M350 255c0 90 120 110 120 220s-120 120-120 205%22 fill=%22none%22 stroke=%22%23a9d9d1%22 stroke-width=%2218%22/%3E%3Ccircle cx=%22230%22 cy=%22345%22 r=%2245%22 fill=%22%23f6c7d8%22/%3E%3Ccircle cx=%22470%22 cy=%22345%22 r=%2245%22 fill=%22%23c7b7e8%22/%3E%3Cpath d=%22M350 350l14 30 34 4-25 23 7 34-30-17-30 17 7-34-25-23 34-4z%22 fill=%22%23f4c95d%22/%3E%3Cpath d=%22M350 520c-48-54-125 18 0 108 125-90 48-162 0-108z%22 fill=%22%23f28b79%22/%3E%3Ccircle cx=%22350%22 cy=%22640%22 r=%2255%22 fill=%22%239bc9e7%22/%3E%3C/svg%3E';
+		productImage.addEventListener('error', () => {
+			productImage.onerror = null;
+			productImage.src = fallbackImage;
+		});
 		document.title = `Vintoera | ${product.name}`;
 		document.getElementById('product-name').textContent = product.name;
 		document.getElementById('crumb-name').textContent = product.name;
@@ -55,10 +80,35 @@
 		document.getElementById('product-description').textContent = product.description;
 		document.getElementById('product-image').src = product.image;
 		document.getElementById('product-image').alt = product.name;
-		const variantPicker = document.getElementById('chain-variants');
+		const variantPicker = document.getElementById('model-variants');
 		const variantOptions = document.getElementById('variant-options');
 		const whatsappLink = document.getElementById('whatsapp-link');
+		const addToCartButton = document.getElementById('add-to-cart');
+		const productCartCount = document.getElementById('product-cart-count').querySelector('.cart-badge');
+		const getCartPieces = (items) => items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+		productCartCount.textContent = getCartPieces(JSON.parse(localStorage.getItem('vintoera-cart') || '[]'));
 		let selectedVariant = null;
+		let quantity = 1;
+		const quantityValue = document.getElementById('quantity-value');
+		document.getElementById('quantity-decrease').addEventListener('click', () => {
+			quantity = Math.max(1, quantity - 1);
+			quantityValue.textContent = quantity;
+		});
+		document.getElementById('quantity-increase').addEventListener('click', () => {
+			quantity += 1;
+			quantityValue.textContent = quantity;
+		});
+		addToCartButton.addEventListener('click', () => {
+			const cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
+			const itemName = selectedVariant ? selectedVariant.name : product.name;
+			const itemPrice = selectedVariant ? selectedVariant.price : product.price;
+			const existingItem = cartItems.find((item) => item.name === itemName && item.price === itemPrice);
+			if (existingItem) existingItem.quantity = (existingItem.quantity || 1) + quantity;
+			else cartItems.push({ name: itemName, price: itemPrice, quantity });
+			localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+			productCartCount.textContent = getCartPieces(cartItems);
+			window.location.href = 'checkout.html';
+		});
 
 		function updateOrderLink() {
 			const orderName = selectedVariant ? `${product.name} - ${selectedVariant.name} (${selectedVariant.price})` : `${product.name} (${product.price})`;
@@ -74,6 +124,9 @@
 				option.innerHTML = `<span>${variant.name}</span><strong>${variant.price}</strong>`;
 				option.addEventListener('click', () => {
 					selectedVariant = variant;
+					document.getElementById('product-name').textContent = variant.name;
+					document.getElementById('crumb-name').textContent = variant.name;
+					document.title = `Vintoera | ${variant.name}`;
 					document.getElementById('product-price').textContent = variant.price;
 					document.getElementById('product-image').src = variant.image;
 					document.getElementById('product-image').alt = `${product.name} - ${variant.name}`;
