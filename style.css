@@ -54,6 +54,7 @@ h2 { max-width: 480px; margin-bottom: 0; font-family: 'Playfair Display', serif;
 .section-heading h2 span { color: var(--accent); }
 .section-count { margin: 0 0 4px; color: var(--muted); font-size: 12px; }
 .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 16px; }
+.product-card { min-width: 0; }
 .product-image { overflow: hidden; background: var(--sand); aspect-ratio: 1 / 1.12; }
 .product-image img, .detail-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
 .product-card:hover .product-image img { transform: scale(1.04); }
@@ -124,15 +125,16 @@ h2 { max-width: 480px; margin-bottom: 0; font-family: 'Playfair Display', serif;
     .search-box input { width: 100%; }
     .hero { min-height: 610px; padding: 76px 20px 80px; background-position: 64% center; }
     .hero::after { background: linear-gradient(180deg, rgba(244, 236, 222, .98) 0%, rgba(244, 236, 222, .88) 48%, rgba(244, 236, 222, .14) 100%); }
-    .hero-content { width: min(100%, 420px); }
-    .hero h1 { font-size: clamp(38px, 12vw, 58px); }
+    .hero-content { width: 100%; max-width: 420px; }
+    .hero h1 { max-width: 100%; font-size: clamp(38px, 12vw, 58px); overflow-wrap: anywhere; }
     .hero h1 em { white-space: normal; }
     .benefits { grid-template-columns: repeat(2, 1fr); }
     .benefits div { min-height: 60px; font-size: 10px; }
     .benefits div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); }
     .shop-section, .detail-page { padding: 70px 0 80px; }
     .section-heading { align-items: start; gap: 24px; flex-direction: column; margin-bottom: 30px; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 14px; }
+    .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; }
+    .product-card { padding: 8px; border: 1px solid var(--line); background: rgba(255, 255, 255, .28); }
     .product-image { aspect-ratio: 1 / 1; }
     .site-footer { padding: 28px 20px; align-items: flex-start; flex-direction: column; gap: 14px; }
     .site-footer p { display: none; }
@@ -147,5 +149,7 @@ h2 { max-width: 480px; margin-bottom: 0; font-family: 'Playfair Display', serif;
     .brand { font-size: 24px; }
     .brand span { font-size: .36em; }
     .site-nav a { padding: 8px 4px; }
-    .product-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+    .product-info { gap: 5px; padding-top: 12px; }
+    .product-info h3, .product-info p { font-size: 12px; }
 }
