@@ -18,7 +18,7 @@
 	<main class="detail-page">
 		<a class="breadcrumb" href="index.html">Collection / <span id="crumb-name">Anti-Tarnish Chain</span></a>
 		<section class="product-detail">
-			<div class="detail-image"><img id="product-image" src="" alt=""></div>
+			<div class="detail-image"><img id="product-image" src="" alt=""><button class="previous-image" id="previous-image" type="button" aria-label="Show previous product image" hidden>‹</button><button class="next-image" id="next-image" type="button" aria-label="Show next product image" hidden>›</button></div>
 			<div class="detail-copy">
 				<p class="eyebrow">The Vintoera edit</p>
 				<h1 id="product-name">Anti-Tarnish Chain</h1>
@@ -46,39 +46,84 @@
 			chain: { name: 'Anti-Tarnish Chain', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
 			chain: { name: 'Signature Chain Collection', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
 			'phone-charms': { name: 'Phone Charms', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg', description: 'Playful handmade phone charms with colourful beads and cheerful shapes. Choose the model that feels most like you.', variants: [
-				{ name: 'Pastel Stars', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg' },
-				{ name: 'Flower Garden', price: '₹119', image: 'PXL_20260913_131656839.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Rainbow Stars', price: '₹119', image: 'PXL_20260913_131606869.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Pink & Green Stars', price: '₹119', image: 'PXL_20260913_131501818.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Sweet Hearts', price: '₹119', image: 'PXL_20260913_131354137.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Colourful Flowers', price: '₹119', image: 'PXL_20260913_131244495.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Butterfly Garden', price: '₹119', image: 'PXL_20260913_131148173.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Lemon Hearts', price: '₹119', image: 'PXL_20260913_131035865.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Heart & Flower', price: '₹119', image: 'PXL_20260913_130949450.PORTRAIT.ORIGINAL.jpg' },
-				{ name: 'Soft Blue Hearts', price: '₹119', image: 'PXL_20260913_130838216.jpg' }
+				{ name: 'Pastel Stars', price: '₹119', image: '1000266056.png' },
+				{ name: 'Flower Garden', price: '₹119', image: 'Flower Garden.jpeg' },
+				{ name: 'Rainbow Stars', price: '₹119', image: 'Rainbow Stars.png' },
+				{ name: 'Pink & Green Stars', price: '₹119', image: 'Pink & Green Stars.jpeg' },
+				{ name: 'Sweet Hearts', price: '₹119', image: 'Sweet Hearts.png' },
+				{ name: 'Colourful Flowers', price: '₹119', image: 'Colourful Flowers.png' },
+				{ name: 'Butterfly Garden', price: '₹119', image: 'Butterfly Garden.png' },
+				{ name: 'Lemon Hearts', price: '₹119', image: 'Lemon Hearts.png' },
+				{ name: 'Heart & Flower', price: '₹119', image: 'Heart & Flower.png' },
+				{ name: 'Soft Blue Hearts', price: '₹119', image: 'Soft Blue Hearts.png' }
 			] },
 			pearl: { name: 'Lunova Chain Collection', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'A refined collection of preserved-flower resin chains designed to bring colour and character to everyday dressing.' },
 			'resin-chain': { name: 'Earring Collection', price: '₹350', image: 'Earring collection image.jpg', description: 'A playful earring collection with colourful detail and a glossy finish, made for everyday styling.' },
 			'resin-bracelet': { name: 'Lunova Bracelet Collection', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'A lightweight handmade bracelet with a refined resin detail, designed to add a little colour to your everyday stack.' },
-			'resin-keychain': { name: 'Keychain', price: '₹200', image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&w=1200&q=85', description: 'A cheerful handmade keychain to personalise your keys, bag, or gifting moments.' },
+			'resin-keychain': { name: 'Keychain Collection', price: '₹30', image: 'Paw Keys.jpeg', description: 'A cheerful keychain to personalise your keys, bag, or gifting moments.', variants: [
+				{ name: 'Blue Paw', price: '₹180', images: ['Paw Blue.jpeg', 'Paw Blue L.jpeg', 'Paw Keys.jpeg'] },
+				{ name: 'Yellow Paw', price: '₹180', images: ['Yellow Paw.jpeg', 'Yellow Paw L.jpeg', 'Paw Keys.jpeg'] },
+				{ name: 'Yellow Paw 2', price: '₹180', images: ['Yellow Paw 2.jpeg', 'Yellow Paw 2L.jpeg', 'Paw Keys.jpeg'] },
+				{ name: 'Keychain 04', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 05', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 06', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 07', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 08', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 09', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 10', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 11', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 12', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 13', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 14', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 15', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 16', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 17', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 18', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 19', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 20', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 21', price: '₹30', images: ['Keychain front image 2.jpg'] },
+				{ name: 'Keychain 22', price: '₹30', images: ['Keychain front image 2.jpg'] }
+			] },
 			'car-frame': { name: '3D Car Frame', price: '₹550', image: 'https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1200&q=85', description: 'A personalised 3D car frame made to bring colour and character to your drive.' },
-			'home-accessory': { name: 'Home Little Accessory', price: '₹250', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=85', description: 'A small handmade accent for your home, designed to make everyday corners feel more personal.' },
+			'home-accessory': { name: 'Home Little Accessory', price: '₹199', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=85', description: 'A small accent for your home, designed to make everyday corners feel more personal.', variants: [
+				{ name: 'Mini Door Bell', price: '₹199', images: ['Mini Door Bell.jpeg'] },
+				{ name: 'Murugan Vel for Car Dashboard Metal Idol', price: '₹199', images: ['Murugan Vel for Car Dashboard Metal Idol.jpeg'] },
+				{ name: 'Mini Door Bell 3', price: '₹199', images: ['Mini Door Bell 3.jpeg'] },
+				{ name: 'Mini Door Bell 4', price: '₹199', images: ['Mini Door Bell 4.jpeg'] }
+			] },
 			'boys-earrings': { name: "Men's Collection", price: '₹180', image: 'Men accessories front image.jpg', description: 'A considered men’s collection with clean, comfortable pieces for everyday styling.' },
 			'bracelet-chain': { name: 'Hand charms', price: '₹300', image: 'Hand charm image.jpg', description: 'A versatile hand charm collection designed to add a playful detail to your everyday look.' }
 		};
 		const product = products[new URLSearchParams(window.location.search).get('product')] || products.chain;
 		const productImage = document.getElementById('product-image');
+		const previousImageButton = document.getElementById('previous-image');
+		const nextImageButton = document.getElementById('next-image');
+		let currentImages = [product.image];
+		let currentImageIndex = 0;
 		const fallbackImage = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 700 760%22%3E%3Crect width=%22700%22 height=%22760%22 fill=%22%23f7eee8%22/%3E%3Ccircle cx=%22350%22 cy=%22125%22 r=%2260%22 fill=%22none%22 stroke=%22%23eaa7bd%22 stroke-width=%2224%22/%3E%3Cpath d=%22M350 185v70c0 90-120 110-120 220s120 120 120 205M350 255c0 90 120 110 120 220s-120 120-120 205%22 fill=%22none%22 stroke=%22%23a9d9d1%22 stroke-width=%2218%22/%3E%3Ccircle cx=%22230%22 cy=%22345%22 r=%2245%22 fill=%22%23f6c7d8%22/%3E%3Ccircle cx=%22470%22 cy=%22345%22 r=%2245%22 fill=%22%23c7b7e8%22/%3E%3Cpath d=%22M350 350l14 30 34 4-25 23 7 34-30-17-30 17 7-34-25-23 34-4z%22 fill=%22%23f4c95d%22/%3E%3Cpath d=%22M350 520c-48-54-125 18 0 108 125-90 48-162 0-108z%22 fill=%22%23f28b79%22/%3E%3Ccircle cx=%22350%22 cy=%22640%22 r=%2255%22 fill=%22%239bc9e7%22/%3E%3C/svg%3E';
 		productImage.addEventListener('error', () => {
 			productImage.onerror = null;
 			productImage.src = fallbackImage;
+		});
+		function showCurrentImage() {
+			productImage.src = currentImages[currentImageIndex];
+			previousImageButton.hidden = currentImages.length < 2;
+			nextImageButton.hidden = currentImages.length < 2;
+		}
+		previousImageButton.addEventListener('click', () => {
+			currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+			showCurrentImage();
+		});
+		nextImageButton.addEventListener('click', () => {
+			currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+			showCurrentImage();
 		});
 		document.title = `Vintoera | ${product.name}`;
 		document.getElementById('product-name').textContent = product.name;
 		document.getElementById('crumb-name').textContent = product.name;
 		document.getElementById('product-price').textContent = product.price;
 		document.getElementById('product-description').textContent = product.description;
-		document.getElementById('product-image').src = product.image;
+		showCurrentImage();
 		document.getElementById('product-image').alt = product.name;
 		const variantPicker = document.getElementById('model-variants');
 		const variantOptions = document.getElementById('variant-options');
@@ -128,7 +173,9 @@
 					document.getElementById('crumb-name').textContent = variant.name;
 					document.title = `Vintoera | ${variant.name}`;
 					document.getElementById('product-price').textContent = variant.price;
-					document.getElementById('product-image').src = variant.image;
+					currentImages = variant.images || [variant.image];
+					currentImageIndex = 0;
+					showCurrentImage();
 					document.getElementById('product-image').alt = `${product.name} - ${variant.name}`;
 					document.querySelectorAll('.variant-option').forEach((item) => item.classList.remove('selected'));
 					option.classList.add('selected');
