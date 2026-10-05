@@ -54,11 +54,10 @@ a { color: inherit; text-decoration: none; }
 .home-car-lane::before, .home-car-lane::after { position: absolute; z-index: 0; right: 0; left: 0; content: ''; }
 .home-car-lane::before { bottom: 0; height: 22px; border-top: 1px solid #c9bca9; background: #eee6d8; }
 .home-car-lane::after { bottom: 10px; height: 2px; background: repeating-linear-gradient(90deg, #c9bca9 0 20px, transparent 20px 48px); background-size: 48px 2px; animation: home-car-road-scroll 1.2s linear infinite; }
-.home-car-scene { position: absolute; z-index: 1; inset: 0; opacity: 0; animation: home-car-scene-cycle 18s linear infinite; }
+.home-car-scene { position: absolute; z-index: 1; inset: 0; opacity: 0; animation: home-car-scene-cycle 12s linear infinite; }
 .home-car-scene-drive { opacity: 1; animation-name: home-car-drive-scene; }
 .home-car { position: absolute; bottom: 7px; left: 0; z-index: 2; width: 92px; height: 46px; }
-.home-car-driving { animation: home-car-drive 8s linear infinite; }
-.home-car-arriving { left: calc(96% - clamp(112px, 10vw, 125px) - 30px - 92px); animation: home-car-shop-trip 18s linear infinite; }
+.home-car-journey { --home-car-stop: calc(96% - clamp(112px, 10vw, 125px) - 30px - 92px); animation: home-car-journey 12s linear infinite; }
 .home-car-illustration { display: block; width: 100%; height: 100%; overflow: visible; }
 .home-car-shop { position: absolute; right: 4%; bottom: 22px; width: clamp(112px, 10vw, 125px); height: auto; stroke: #514840; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .home-car-shop-building { fill: #f3e7d4; }
@@ -68,21 +67,22 @@ a { color: inherit; text-decoration: none; }
 .home-car-shop-awning { fill: #d7a06b; }
 .home-car-shop-window { fill: #d7e3dc; }
 .home-car-shop-door { fill: #c79569; }
-.home-car-shopper { position: absolute; right: calc(4% + clamp(112px, 10vw, 125px) + 3px); bottom: 21px; width: 28px; height: 40px; overflow: visible; fill: #514840; stroke: #514840; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: 0; animation: home-car-shop-visit 18s linear infinite; }
-.home-car-gift { fill: #a84c35; stroke: #fbf8f2; stroke-width: .8; opacity: 0; animation: home-car-gift-pickup 18s linear infinite; }
+.home-car-shopper { position: absolute; right: calc(4% + clamp(112px, 10vw, 125px) + 3px); bottom: 21px; width: 28px; height: 40px; overflow: visible; fill: #514840; stroke: #514840; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: 0; animation: home-car-shop-visit 12s linear infinite; }
+.home-car-gift { fill: #a84c35; stroke: #fbf8f2; stroke-width: .8; opacity: 0; animation: home-car-gift-pickup 12s linear infinite; }
 .home-car-body, .home-car-window, .home-car-detail, .home-car-wheel circle, .home-car-wheel path { stroke: #514840; stroke-linecap: round; stroke-linejoin: round; }
 .home-car-body { fill: #a84c35; stroke-width: 2; }
 .home-car-window { fill: #fbf8f2; stroke-width: 1.6; }
 .home-car-driver { fill: #514840; stroke: #514840; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .home-car-detail { fill: none; stroke-width: 1.6; }
+.home-car-journey .home-car-wheel { transform-box: fill-box; transform-origin: center; animation: home-car-journey-wheels 12s linear infinite; }
 .home-car-wheel circle { fill: #fbf8f2; stroke-width: 2; }
 .home-car-wheel path { fill: none; stroke-width: 1.2; }
-@keyframes home-car-drive-scene { 0%, 45% { opacity: 1; } 50%, 96% { opacity: 0; } 100% { opacity: 1; } }
-@keyframes home-car-scene-cycle { 0%, 48% { opacity: 0; } 53%, 95% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes home-car-drive { from { transform: translateX(-100%); } to { transform: translateX(calc(100vw + 100%)); } }
-@keyframes home-car-shop-trip { 0%, 51% { transform: translateX(-140px); } 53% { transform: translateX(-140px); } 68%, 87% { transform: translateX(0); } 100% { transform: translateX(160vw); } }
-@keyframes home-car-shop-visit { 0%, 69% { opacity: 0; transform: translateX(0); } 70% { opacity: 1; transform: translateX(0); } 74% { opacity: 1; transform: translateX(58px); } 77%, 79% { opacity: 0; transform: translateX(58px); } 80% { opacity: 1; transform: translateX(58px); } 85% { opacity: 1; transform: translateX(0); } 87%, 100% { opacity: 0; transform: translateX(0); } }
-@keyframes home-car-gift-pickup { 0%, 79% { opacity: 0; } 80%, 86% { opacity: 1; } 87%, 100% { opacity: 0; } }
+@keyframes home-car-drive-scene { 0%, 40% { opacity: 1; } 45%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes home-car-scene-cycle { 0%, 42% { opacity: 0; } 47%, 95% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes home-car-journey { 0% { left: -92px; } 62% { left: var(--home-car-stop); } 80% { left: var(--home-car-stop); } 100% { left: calc(100vw + 92px); } }
+@keyframes home-car-journey-wheels { 0% { transform: rotate(0); } 62% { transform: rotate(1080deg); } 80% { transform: rotate(1080deg); } 100% { transform: rotate(1800deg); } }
+@keyframes home-car-shop-visit { 0%, 62% { opacity: 0; transform: translateX(0); } 64% { opacity: 1; transform: translateX(0); } 70% { opacity: 1; transform: translateX(58px); } 72%, 73% { opacity: 0; transform: translateX(58px); } 74% { opacity: 1; transform: translateX(58px); } 80% { opacity: 1; transform: translateX(0); } 84%, 100% { opacity: 0; transform: translateX(0); } }
+@keyframes home-car-gift-pickup { 0%, 73% { opacity: 0; } 74%, 81% { opacity: 1; } 83%, 100% { opacity: 0; } }
 @keyframes home-car-road-scroll { to { background-position-x: -48px; } }
 .eyebrow { margin: 0 0 18px; color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
 h1, h2, h3, p { margin-top: 0; }
@@ -249,7 +249,8 @@ h2 { max-width: 480px; margin-bottom: 0; font-family: 'Playfair Display', serif;
     .home-car-scene { animation: none; }
     .home-car-scene-drive { display: none; }
     .home-car-scene-shop { opacity: 1; }
-    .home-car-driving, .home-car-arriving, .home-car-lane::after, .home-car-shopper, .home-car-gift { animation: none; }
-    .home-car-arriving { transform: none; }
+    .home-car-journey, .home-car-lane::after, .home-car-shopper, .home-car-gift { animation: none; }
+    .home-car-journey .home-car-wheel { animation: none; transform: none; }
+    .home-car-journey { left: var(--home-car-stop); }
     .home-car-shopper { opacity: 0; }
 }
