@@ -1,0 +1,224 @@
+﻿Diagnose log at 2026-09-24T13:52:49Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.9.1+6760f0ef069c994aa2bb1d703fb374986ee82a3e
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+SESSIONNAME=Console
+ProgramFiles(x86)=C:\Program Files (x86)
+MSYSTEM=MINGW64
+ProgramW6432=C:\Program Files
+windir=C:\WINDOWS
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 186 Stepping 3, GenuineIntel
+TMP=C:\Users\DEMURU~1\AppData\Local\Temp
+NPM_CONFIG_CAFILE=C:\Users\demurugan\.netskope-cert.pem
+CURL_CA_BUNDLE=C:\Users\demurugan\.netskope-cert.pem
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+GRADLE_OPTS= -Djavax.net.ssl.trustStore=C:\Users\demurugan\.netskope-cert.pem
+PUBLIC=C:\Users\Public
+VSTO_SUPPRESSDISPLAYALERTS=0
+COLORTERM=truecolor
+PYTHONHTTPSVERIFY=C:\Users\demurugan\.netskope-cert.pem
+VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-dcccefbe72-sock
+USERDOMAIN=GIGAMON
+PROCESSOR_REVISION=ba03
+PIP_CERT=C:\Users\demurugan\.netskope-cert.pem
+USERPROFILE=C:\Users\demurugan
+VSCODE_GIT_ASKPASS_MAIN=c:\Users\demurugan\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass-main.js
+LOGONSERVER=\\G-31VPN34
+TEMP=C:\Users\DEMURU~1\AppData\Local\Temp
+SSL_CERT_DIR=C:\Users\demurugan\.netskope-cert.pem
+USERNAME=demurugan
+SystemRoot=C:\WINDOWS
+CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_59296_XIKKJIWBFDPTWJZE
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+PLINK_PROTOCOL=ssh
+USERDNSDOMAIN=gigamon.com
+REQUESTS_CA_BUNDLE=C:\Users\demurugan\.netskope-cert.pem
+NODE_EXTRA_CA_CERTS=C:\Users\demurugan\.netskope-cert.pem
+PROCESSOR_ARCHITECTURE=AMD64
+CommonProgramFiles=C:\Program Files\Common Files
+ZES_ENABLE_SYSMAN=1
+VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+USERDOMAIN_ROAMINGPROFILE=GIGAMON
+GO_SSL_CERT_FILE=C:\Users\demurugan\.netskope-cert.pem
+LANG=en_US.UTF-8
+GIT_ASKPASS=c:\Users\demurugan\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass.sh
+HOMEPATH=\Users\demurugan
+CARGO_HTTP_CAINFO=C:\Users\demurugan\.netskope-cert.pem
+COMPUTERNAME=G-31VPN34
+PYTHON_CERTIFI_CACERT=C:\Users\demurugan\.netskope-cert.pem
+GIT_SSL_CERT=C:\Users\demurugan\.netskope-cert.pem
+RUBY_SSL_CERT_FILE=C:\Users\demurugan\.netskope-cert.pem
+ALLUSERSPROFILE=C:\ProgramData
+CommonProgramW6432=C:\Program Files\Common Files
+PYTHONCERTFILE=C:\Users\demurugan\.netskope-cert.pem
+CURL_SSL_VERIFY=C:\Users\demurugan\.netskope-cert.pem
+COPILOT_DEBUG_NONCE=8d6c903eed309b4c4ae137887d695410
+GIT_SSL_CAINFO=C:\Users\demurugan\.netskope-cert.pem
+TERM=xterm-256color
+SSL_CERT_FILE=C:\Users\demurugan\.netskope-cert.pem
+JAVA_OPTS= -Djavax.net.ssl.trustStore=C:\Users\demurugan\.netskope-cert.pem
+VSCODE_INJECTION=1
+DriverData=C:\Windows\System32\Drivers\DriverData
+HOMEDRIVE=C:
+OneDriveCommercial=C:\Users\demurugan\OneDrive - Gigamon Inc
+GIT_TRACE2_PARENT_SID=5411c68d-a298-43b5-866a-353916f84024
+SystemDrive=C:
+NUMBER_OF_PROCESSORS=12
+OS=Windows_NT
+REQUESTS_CA_CERTS=C:\Users\demurugan\.netskope-cert.pem
+RUST_CERT_FILE=C:\Users\demurugan\.netskope-cert.pem
+ProgramFiles=C:\Program Files
+ComSpec=C:\WINDOWS\system32\cmd.exe
+HELM_CAFILE=C:\Users\demurugan\.netskope-cert.pem
+COMPOSER_CAFILE=C:\Users\demurugan\.netskope-cert.pem
+HOME=C:\Users\demurugan
+DOCKER_CERT_PATH=C:\Users\demurugan\.netskope-cert.pem
+YARN_CAFILE=C:\Users\demurugan\.netskope-cert.pem
+PSModulePath=C:\Users\demurugan\OneDrive - Gigamon Inc\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+TMPDIR=C:\Users\DEMURU~1\AppData\Local\Temp
+APPDATA=C:\Users\demurugan\AppData\Roaming
+OneDrive=C:\Users\demurugan\OneDrive - Gigamon Inc
+PROCESSOR_LEVEL=6
+Path=C:/Program Files/Git/mingw64/libexec/git-core;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\demurugan\bin;c:\Users\demurugan\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\demurugan\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\Automox\;C:\Program Files\Git\cmd;C:\Users\demurugan\AppData\Local\Microsoft\WindowsApps;C:\Users\demurugan\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\demurugan\AppData\Local\GitHubDesktop\bin
+MAVEN_OPTS= -Djavax.net.ssl.trustStore=C:\Users\demurugan\.netskope-cert.pem
+LOCALAPPDATA=C:\Users\demurugan\AppData\Local
+WGET_CA_CERTIFICATE=C:\Users\demurugan\.netskope-cert.pem
+VSCODE_GIT_ASKPASS_NODE=C:\Users\demurugan\AppData\Local\Programs\Microsoft VS Code\Code.exe
+TERM_PROGRAM_VERSION=1.139.0
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+ProgramData=C:\ProgramData
+AWS_CA_BUNDLE=C:\Users\demurugan\.netskope-cert.pem
+TERM_PROGRAM=vscode
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'C:\Users\demurugan\AppData\Local\Temp\'...
+Checking basic file I/O...
+Writing to temporary file 'C:\Users\demurugan\AppData\Local\Temp\165b455d861929eb2ebf32f6'... OK
+Reading from temporary file 'C:\Users\demurugan\AppData\Local\Temp\165b455d861929eb2ebf32f6'... OK
+Deleting temporary file 'C:\Users\demurugan\AppData\Local\Temp\165b455d861929eb2ebf32f6'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\demurugan
+UserDataDirectoryPath: C:\Users\demurugan\.gcm
+GetCurrentDirectory(): C:\Users\demurugan\OneDrive - Gigamon Inc\Desktop\Vintoera
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com... OK
+Sending HEAD request to https://example.com... OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:56372/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.55.0.windows.5'
+Locating current repository...Git repository at 'C:/Users/demurugan/OneDrive - Gigamon Inc/Desktop/Vintoera/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:C:/Program Files/Git/etc/gitconfig	diff.astextplain.textconv=astextplain
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.required=true
+file:C:/Program Files/Git/etc/gitconfig	http.sslbackend=schannel
+file:C:/Program Files/Git/etc/gitconfig	core.autocrlf=true
+file:C:/Program Files/Git/etc/gitconfig	core.fscache=true
+file:C:/Program Files/Git/etc/gitconfig	core.symlinks=false
+file:C:/Program Files/Git/etc/gitconfig	pull.rebase=false
+file:C:/Program Files/Git/etc/gitconfig	credential.helper=manager
+file:C:/Program Files/Git/etc/gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:C:/Program Files/Git/etc/gitconfig	init.defaultbranch=master
+file:C:/Users/demurugan/.gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Users/demurugan/.gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Users/demurugan/.gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Users/demurugan/.gitconfig	filter.lfs.required=true
+file:C:/Users/demurugan/.gitconfig	user.name=vintoera
+file:C:/Users/demurugan/.gitconfig	user.email=YOUR_GITHUB_EMAIL
+file:C:/Users/demurugan/.gitconfig	credential.helper=manager-core
+file:C:/Users/demurugan/.gitconfig	credential.helper=
+file:C:/Users/demurugan/.gitconfig	credential.helper=C:/Program\ Files/Git/mingw64/bin/git-credential-manager.exe
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	remote.Vintoera.url=https://github.com/vintoera/Vintoera.git
+file:.git/config	remote.Vintoera.fetch=+refs/heads/*:refs/remotes/Vintoera/*
+file:.git/config	branch.main.vscode-merge-base=Vintoera/main
+file:.git/config	lfs.repositoryformatversion=0
+file:.git/config	branch.C--Users-demurugan-OneDrive---Gigamon-Inc-Desktop-Vintoera.vscode-merge-base=Vintoera/main
+file:.git/config	branch.C--Users-demurugan-OneDrive---Gigamon-Inc-Desktop-Vintoera.remote=Vintoera
+file:.git/config	branch.C--Users-demurugan-OneDrive---Gigamon-Inc-Desktop-Vintoera.merge=refs/heads/C--Users-demurugan-OneDrive---Gigamon-Inc-Desktop-Vintoera
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Gathering MSAL token cache data... OK
+CacheDirectory: C:\Users\demurugan\AppData\Local\.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: C:\Users\demurugan\AppData\Local\.IdentityService\msal.cache
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+

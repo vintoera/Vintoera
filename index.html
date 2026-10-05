@@ -15,8 +15,8 @@
         <a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
         <nav class="site-nav" aria-label="Main navigation">
             <a href="#shop">Shop</a>
-            <a href="#shop">New arrivals</a>
-            <a href="#shop">Bestsellers</a>
+            <a href="#new-arrivals">New arrivals</a>
+            <a href="#bestsellers">Bestsellers</a>
             <a href="#about">Our story</a>
             <a href="https://www.instagram.com/vintoera?stkn=NDZ3bmsxb2o0eTZz" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
         </nav>
@@ -30,15 +30,119 @@
     </header>
     <main>
         <section class="hero" id="about">
+            <div class="hero-slideshow" aria-label="Featured Vintoera products">
+                <img class="hero-slide active" src="WhatsApp Image 2026-09-13 at 11.54.11 PM.jpeg" alt="Vintoera jewellery collection">
+                <img class="hero-slide" src="IMG_1676 (1).webp" alt="Batman miniature car frames">
+                <img class="hero-slide" src="floral-pendant-hero.webp" alt="Round resin pendant filled with colourful dried flowers">
+                <img class="hero-slide" src="pressed-flower-necklaces-hero.jpg" alt="Pressed-flower resin necklaces in warm sunlight">
+                <img class="hero-slide" src="Resin bracelet front image.jpg" alt="Lunova handmade bracelet collection">
+            </div>
             <div class="hero-content">
                 <p class="eyebrow">Handmade jewellery</p>
                 <h1>Little luxuries,<br><em>made for everyday.</em></h1>
                 <p class="hero-copy">Vintoera began with a love for creating little things that feel personal. From handcrafted resin jewellery and everyday anti-tarnish pieces to earrings, keychains, phone charms, 3D car frames, miniature metal cars, and hair accessories, each piece is thoughtfully chosen or created to add a little charm to everyday life. What started with a love for making beautiful things is growing into a collection of little pieces made to be worn, gifted, carried, and remembered.</p>
                 <p class="brand-message">Maybe it’s just a little gift today, but someday it might become part of our story.</p>
-                <a class="button button-accent" href="#shop">Shop the collection <span aria-hidden="true">→</span></a>
+                <div class="hero-actions">
+                    <a class="button button-accent" href="#new-arrivals">Explore new arrivals <span aria-hidden="true">→</span></a>
+                    <a class="hero-secondary-link" href="#bestsellers">Shop bestsellers <span aria-hidden="true">↓</span></a>
+                </div>
             </div>
-            <p class="search-empty" id="search-empty" hidden>No products match your search.</p>
+            <div class="hero-controls" aria-label="Featured product slideshow controls">
+                <button class="hero-slide-step" id="hero-previous" type="button" aria-label="Show previous featured product">←</button>
+                <div class="hero-slide-dots" role="group" aria-label="Choose featured product">
+                    <button class="hero-slide-dot active" type="button" aria-label="Show Vintoera jewellery collection" aria-pressed="true"></button>
+                    <button class="hero-slide-dot" type="button" aria-label="Show miniature car frames" aria-pressed="false"></button>
+                    <button class="hero-slide-dot" type="button" aria-label="Show floral resin pendant" aria-pressed="false"></button>
+                    <button class="hero-slide-dot" type="button" aria-label="Show pressed-flower necklaces" aria-pressed="false"></button>
+                    <button class="hero-slide-dot" type="button" aria-label="Show Lunova bracelet collection" aria-pressed="false"></button>
+                </div>
+                <button class="hero-slide-step" id="hero-next" type="button" aria-label="Show next featured product">→</button>
+                <button class="hero-slide-toggle" id="hero-toggle" type="button" aria-label="Pause featured product slideshow">Ⅱ</button>
+            </div>
         </section>
+
+        <section class="product-marquee" aria-label="Featured products: Lunova Chain Collection, Lunova Bracelet Collection, 3D Car Frame, Hand Charms, Keychains, and Little Accessories">
+            <div class="product-marquee-track" aria-hidden="true">
+                <div class="product-marquee-group">
+                    <span>Lunova Chain Collection</span><span class="marquee-star">✧</span>
+                    <span>Lunova Bracelet Collection</span><span class="marquee-star">✧</span>
+                    <span>3D Car Frame</span><span class="marquee-star">✧</span>
+                    <span>Hand Charms</span><span class="marquee-star">✧</span>
+                    <span>Keychains</span><span class="marquee-star">✧</span>
+                    <span>Little Accessories</span><span class="marquee-star">✧</span>
+                    <span>Posters</span><span class="marquee-star">✧</span>
+                </div>
+                <div class="product-marquee-group">
+                    <span>Lunova Chain Collection</span><span class="marquee-star">✧</span>
+                    <span>Lunova Bracelet Collection</span><span class="marquee-star">✧</span>
+                    <span>3D Car Frame</span><span class="marquee-star">✧</span>
+                    <span>Hand Charms</span><span class="marquee-star">✧</span>
+                    <span>Keychains</span><span class="marquee-star">✧</span>
+                    <span>Little Accessories</span><span class="marquee-star">✧</span>
+                    <span>Posters</span><span class="marquee-star">✧</span>
+                </div>
+            </div>
+        </section>
+        <div class="home-car-lane" aria-hidden="true">
+            <div class="home-car-scene home-car-scene-drive">
+                <div class="home-car home-car-driving">
+                    <svg class="home-car-illustration" viewBox="0 0 120 60" focusable="false">
+                    <path class="home-car-body" d="M10 39l6-14c1-3 4-5 8-5h15L52 8c2-2 5-3 8-3h20c4 0 7 2 9 5l13 15 8 3c3 1 5 4 5 8v8H10z"/>
+                    <path class="home-car-window" d="M43 20 55 9c2-2 4-2 7-2h8v13zm31-13h6c3 0 5 1 7 4l8 9H74z"/>
+                    <g class="home-car-driver">
+                        <circle cx="61" cy="13" r="3.5"/>
+                        <path d="M59 17v5m0-3-5 3m5-3 5 3"/>
+                    </g>
+                    <path class="home-car-detail" d="M13 35h8m87-3h7M24 43h77"/>
+                    <g class="home-car-wheel">
+                        <circle cx="34" cy="43" r="8"/>
+                        <path d="M34 37v12m-6-6h12"/>
+                    </g>
+                    <g class="home-car-wheel">
+                        <circle cx="91" cy="43" r="8"/>
+                        <path d="M91 37v12m-6-6h12"/>
+                    </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="home-car-scene home-car-scene-shop">
+                <svg class="home-car-shop" viewBox="0 0 180 84" focusable="false">
+                    <path class="home-car-shop-building" d="M12 37h156v44H12z"/>
+                    <path class="home-car-shop-roof" d="M5 37l12-26h132l26 26z"/>
+                    <rect class="home-car-shop-sign" x="23" y="14" width="126" height="14" rx="1"/>
+                    <text class="home-car-shop-name" x="86" y="24">Vintoera</text>
+                    <path class="home-car-shop-awning" d="M17 29h132l-5 8H22z"/>
+                    <path class="home-car-shop-window" d="M27 42h48v39H27zM34 48h15v18H34zM55 48h15v18H55z"/>
+                    <path class="home-car-shop-door" d="M92 42h53v39H92zM100 51h37M100 60h37M100 69h25"/>
+                </svg>
+                <svg class="home-car-shopper" viewBox="0 0 28 40" focusable="false" aria-hidden="true">
+                    <circle cx="14" cy="5" r="4"/>
+                    <path d="M14 10v15m0-10-7 7m7-7 7 7m-7 3-6 12m6-12 7 12"/>
+                    <g class="home-car-gift">
+                        <path d="M17 16h9v8h-9zM16 14h11v3H16zM21 14c-5-2-3-6-1-4 1 1 1 3 1 4zm0 0c5-2 3-6 1-4-1 1-1 3-1 4z"/>
+                    </g>
+                </svg>
+                <div class="home-car home-car-arriving">
+                    <svg class="home-car-illustration" viewBox="0 0 120 60" focusable="false">
+                        <path class="home-car-body" d="M10 39l6-14c1-3 4-5 8-5h15L52 8c2-2 5-3 8-3h20c4 0 7 2 9 5l13 15 8 3c3 1 5 4 5 8v8H10z"/>
+                        <path class="home-car-window" d="M43 20 55 9c2-2 4-2 7-2h8v13zm31-13h6c3 0 5 1 7 4l8 9H74z"/>
+                        <g class="home-car-driver">
+                            <circle cx="61" cy="13" r="3.5"/>
+                            <path d="M59 17v5m0-3-5 3m5-3 5 3"/>
+                        </g>
+                        <path class="home-car-detail" d="M13 35h8m87-3h7M24 43h77"/>
+                        <g class="home-car-wheel">
+                            <circle cx="34" cy="43" r="8"/>
+                            <path d="M34 37v12m-6-6h12"/>
+                        </g>
+                        <g class="home-car-wheel">
+                            <circle cx="91" cy="43" r="8"/>
+                            <path d="M91 37v12m-6-6h12"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
         <section class="benefits" aria-label="Vintoera benefits">
             <div><span aria-hidden="true">♡</span> Handmade with care</div>
             <div><span aria-hidden="true">✧</span> Skin-friendly materials</div>
@@ -46,54 +150,69 @@
             <div><span aria-hidden="true">□</span> Secure payments</div>
             <div><span aria-hidden="true">▱</span> Ships across India</div>
         </section>
-        <section class="shop-section" id="shop">
-            <div class="section-heading">
-                <div><p class="eyebrow">Shop our favourites</p><h2>A few favourites <span aria-hidden="true">♡</span></h2></div>
-                <p class="section-count">10 pieces</p>
-            </div>
-            <div class="product-grid">
-                <a class="product-card" href="product.html?product=pearl">
-                    <div class="product-image"><img src="Resin chains front image 2.jpg" alt="Lunova Chain Collection"></div>
-                    <div class="product-info"><h3>Lunova Chain Collection</h3><p>₹249</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
-                <a class="product-card" href="product.html?product=phone-charms">
-                    <div class="product-image"><img src="Phone charms front image final.jpg" alt="Colourful handmade phone charms"></div>
-                    <div class="product-info"><h3>Phone Charms</h3><p>₹119</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
-                <a class="product-card" href="product.html?product=resin-bracelet">
-                    <div class="product-image"><img src="Resin bracelet front image.jpg" alt="Lunova Bracelet Collection"></div>
-                    <div class="product-info"><h3>Lunova Bracelet Collection</h3><p>₹249</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
+        <div id="shop">
+            <section class="shop-section collection-section" id="new-arrivals" aria-labelledby="new-arrivals-title">
+                <div class="section-heading">
+                    <div><p class="eyebrow">Fresh from Vintoera</p><h2 id="new-arrivals-title">New arrivals <span aria-hidden="true">✧</span></h2></div>
+                    <p class="section-count">New pieces to discover</p>
+                </div>
+                <div class="product-grid">
+                    <a class="product-card" href="product.html?product=pearl">
+                        <div class="product-image"><img src="Resin chains front image 2.jpg" alt="Lunova Chain Collection"></div>
+                        <div class="product-info"><h3>Lunova Chain Collection</h3><p>₹249</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                    <a class="product-card" href="product.html?product=resin-bracelet">
+                        <div class="product-image"><img src="Resin bracelet front image.jpg" alt="Lunova Bracelet Collection"></div>
+                        <div class="product-info"><h3>Lunova Bracelet Collection</h3><p>₹249</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                    <a class="product-card" href="product.html?product=car-frame">
+                        <div class="product-image"><img src="IMG_1676 (1).webp" alt="Batman miniature car frames"></div>
+                        <div class="product-info"><h3>3D Car Frame</h3><p>From ₹550</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                    <a class="product-card" href="product.html?product=poster-collection">
+                        <div class="product-image"><img src="poster-collection-preview.svg" alt="Botanical poster collection preview"></div>
+                        <div class="product-info"><h3>Posters</h3><p>From ₹149</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                </div>
+            </section>
+            <section class="shop-section collection-section bestsellers-section" id="bestsellers" aria-labelledby="bestsellers-title">
+                <div class="section-heading">
+                    <div><p class="eyebrow">Loved by our community</p><h2 id="bestsellers-title">Bestsellers <span aria-hidden="true">♡</span></h2></div>
+                    <p class="section-count">Customer favourites</p>
+                </div>
+                <div class="product-grid">
                     <a class="product-card" href="product.html?product=chain">
                         <div class="product-image"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=85" alt="Signature Chain Collection"></div>
-                        <div class="product-info"><h3>Signature Chain Collection</h3><p>₹149</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
+                        <div class="product-info"><h3>Signature Chain Collection</h3><p>₹149</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
                     <a class="product-card" href="product.html?product=resin-chain">
-                        <div class="product-image"><img src="Earring collection image.jpg" alt="Earring Collection"></div>
-                        <div class="product-info"><h3>Earring Collection</h3><p>₹30</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
+                        <div class="product-image"><img src="Earring collection image.jpg" alt="Handmade earring collection"></div>
+                        <div class="product-info"><h3>Earring Collection</h3><p>₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
                     <a class="product-card" href="product.html?product=bracelet-chain">
-                        <div class="product-image"><img src="Hand charm image.jpg" alt="Hand charms"></div>
-                        <div class="product-info"><h3>Hand charms</h3><p>₹49</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
+                        <div class="product-image"><img src="Hand charm image.jpg" alt="Colourful beaded hand charm bracelets"></div>
+                        <div class="product-info"><h3>Hand charms</h3><p>₹49</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
                     <a class="product-card" href="product.html?product=boys-earrings">
-                        <div class="product-image"><img src="Men accessories front image.jpg" alt="Men's Collection"></div>
-                        <div class="product-info"><h3>Men's Collection</h3><p>₹120</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
+                        <div class="product-image"><img src="Men accessories front image.jpg" alt="Men's accessories collection"></div>
+                        <div class="product-info"><h3>Men's Collection</h3><p>₹120</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
-                <a class="product-card" href="product.html?product=resin-keychain">
-                    <div class="product-image"><img src="Keychain front image 2.jpg" alt="Handmade keychain"></div>
-                    <div class="product-info"><h3>Keychain</h3><p>₹30</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
-                <a class="product-card" href="product.html?product=car-frame">
-                    <div class="product-image"><img src="Car frames front image.jpg" alt="Decorative 3D car frames"></div>
-                    <div class="product-info"><h3>3D Car Frame</h3><p>₹250</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
-                <a class="product-card" href="product.html?product=home-accessory">
-                    <div class="product-image"><img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=85" alt="Handmade resin home accessory"></div>
-                    <div class="product-info"><h3>Little Accessory</h3><p>₹199</p><span class="view-link">View piece <span aria-hidden="true">↗</span></span></div>
-                </a>
-            </div>
-        </section>
+                    <a class="product-card" href="product.html?product=phone-charms">
+                        <div class="product-image"><img src="Phone charms front image final.jpg" alt="Colourful handmade phone charms"></div>
+                        <div class="product-info"><h3>Phone Charms</h3><p>₹119</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                    <a class="product-card" href="product.html?product=home-accessory">
+                        <div class="product-image"><img src="Mini Door Bell.jpeg" alt="Decorative mini door bell"></div>
+                        <div class="product-info"><h3>Little Accessory</h3><p>₹199</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                    <a class="product-card" href="product.html?product=resin-keychain">
+                        <div class="product-image"><img src="Keychain front image 2.jpg" alt="Handmade keychain"></div>
+                        <div class="product-info"><h3>Keychain</h3><p>₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
+                </div>
+            </section>
+            <p class="search-empty" id="search-empty" role="status" hidden>No products match your search.</p>
+        </div>
     </main>
     <footer class="site-footer">
         <a class="brand" href="index.html">Vintoera <span>by Vintage Alchemia</span></a>
@@ -117,8 +236,18 @@
                 card.hidden = !matches;
                 if (matches) visibleProducts += 1;
             });
-            searchEmpty.hidden = visibleProducts > 0;
+            document.querySelectorAll('.collection-section').forEach((section) => {
+                section.hidden = !section.querySelector('.product-card:not([hidden])');
+            });
+            searchEmpty.hidden = visibleProducts > 0 || !query;
         }
+
+        document.querySelectorAll('a[href="#new-arrivals"], a[href="#bestsellers"]').forEach((link) => {
+            link.addEventListener('click', () => {
+                searchInput.value = '';
+                filterProducts();
+            });
+        });
 
         searchInput.addEventListener('input', filterProducts);
         searchForm.addEventListener('submit', (event) => {
@@ -126,6 +255,60 @@
             filterProducts();
             document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
         });
+
+        const heroSlides = [...document.querySelectorAll('.hero-slide')];
+        const heroSlideDots = [...document.querySelectorAll('.hero-slide-dot')];
+        const heroToggle = document.getElementById('hero-toggle');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let activeHeroSlide = 0;
+        let heroTimer;
+        let slideshowPaused = prefersReducedMotion.matches;
+
+        function showHeroSlide(index) {
+            activeHeroSlide = (index + heroSlides.length) % heroSlides.length;
+            heroSlides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === activeHeroSlide;
+                slide.classList.toggle('active', isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+                heroSlideDots[slideIndex].classList.toggle('active', isActive);
+                heroSlideDots[slideIndex].setAttribute('aria-pressed', String(isActive));
+            });
+        }
+
+        function startHeroSlideshow() {
+            window.clearInterval(heroTimer);
+            if (!slideshowPaused && !prefersReducedMotion.matches) {
+                heroTimer = window.setInterval(() => showHeroSlide(activeHeroSlide + 1), 5500);
+            }
+        }
+
+        document.getElementById('hero-previous').addEventListener('click', () => {
+            showHeroSlide(activeHeroSlide - 1);
+            startHeroSlideshow();
+        });
+        document.getElementById('hero-next').addEventListener('click', () => {
+            showHeroSlide(activeHeroSlide + 1);
+            startHeroSlideshow();
+        });
+        heroSlideDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showHeroSlide(index);
+                startHeroSlideshow();
+            });
+        });
+        heroToggle.addEventListener('click', () => {
+            slideshowPaused = !slideshowPaused;
+            heroToggle.textContent = slideshowPaused ? '▶' : 'Ⅱ';
+            heroToggle.setAttribute('aria-label', `${slideshowPaused ? 'Play' : 'Pause'} featured product slideshow`);
+            startHeroSlideshow();
+        });
+        document.querySelector('.hero').addEventListener('mouseenter', () => window.clearInterval(heroTimer));
+        document.querySelector('.hero').addEventListener('mouseleave', startHeroSlideshow);
+        prefersReducedMotion.addEventListener('change', startHeroSlideshow);
+        showHeroSlide(0);
+        heroToggle.textContent = slideshowPaused ? '▶' : 'Ⅱ';
+        heroToggle.setAttribute('aria-label', `${slideshowPaused ? 'Play' : 'Pause'} featured product slideshow`);
+        startHeroSlideshow();
     </script>
 </body>
 </html>

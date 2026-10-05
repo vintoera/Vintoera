@@ -26,9 +26,30 @@
                 <a class="button continue-shopping" href="index.html#shop">Add more items <span aria-hidden="true">→</span></a>
             </section>
             <section class="checkout-card">
-                <h2>Complete your order</h2>
-                <p>Send your selection to Vintoera on WhatsApp and we will confirm availability, delivery, and payment.</p>
-                <a class="button whatsapp-button" id="checkout-whatsapp" href="https://wa.me/917708564234" target="_blank" rel="noreferrer">Order on WhatsApp <span aria-hidden="true">↗</span></a>
+                <h2>Delivery details</h2>
+                <p>Enter your details so we can confirm your order and delivery on WhatsApp.</p>
+                <form class="customer-details-form" id="customer-details-form" action="https://wa.me/917708564234" method="get" target="_blank">
+                    <label for="customer-name">Full name</label>
+                    <input id="customer-name" type="text" autocomplete="name" required>
+
+                    <label for="delivery-address">Delivery address</label>
+                    <textarea id="delivery-address" rows="3" autocomplete="street-address" required></textarea>
+
+                    <div class="address-location-fields">
+                        <div>
+                            <label for="delivery-city">City</label>
+                            <input id="delivery-city" type="text" autocomplete="address-level2" required>
+                        </div>
+                        <div>
+                            <label for="delivery-state">State</label>
+                            <input id="delivery-state" type="text" autocomplete="address-level1" required>
+                        </div>
+                    </div>
+
+                    <label for="delivery-postal-code">PIN code</label>
+                    <input id="delivery-postal-code" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{6}" maxlength="6" title="Enter a 6-digit PIN code" required>
+                    <button class="button whatsapp-button" id="checkout-submit" type="submit">Continue to WhatsApp <span aria-hidden="true">↗</span></button>
+                </form>
             </section>
         </div>
     </main>
@@ -43,22 +64,78 @@
             document.getElementById('item-count').textContent = `${pieceCount} ${pieceCount === 1 ? 'piece' : 'pieces'}`;
             document.getElementById('cart-total').textContent = `₹${total}`;
             document.getElementById('empty-cart').hidden = cartItems.length > 0;
+            document.getElementById('checkout-submit').disabled = cartItems.length === 0;
             cartItems.forEach((item, index) => {
                 const row = document.createElement('div');
                 row.className = 'cart-row';
                 const quantity = item.quantity || 1;
                 const lineTotal = Number(item.price.replace(/[^0-9.]/g, '')) * quantity;
-                row.innerHTML = `<span>${item.name} <small>Qty ${quantity}</small></span><strong>₹${lineTotal}</strong><button class="remove-cart" type="button" aria-label="Remove ${item.name}">Remove</button>`;
-                row.querySelector('.remove-cart').addEventListener('click', () => {
-                    cartItems.splice(index, 1);
+                const unitPrice = Number(item.price.replace(/[^0-9.]/g, ''));
+                const details = document.createElement('span');
+                details.className = 'cart-item-details';
+                details.append(document.createTextNode(item.name));
+                const unitPriceLabel = document.createElement('small');
+                unitPriceLabel.textContent = `Unit price: ₹${unitPrice}`;
+                details.appendChild(unitPriceLabel);
+
+                const totalLabel = document.createElement('strong');
+                totalLabel.textContent = `₹${lineTotal}`;
+
+                const quantityControls = document.createElement('div');
+                quantityControls.className = 'cart-quantity-controls';
+                const decreaseButton = document.createElement('button');
+                decreaseButton.className = 'cart-quantity-button';
+                decreaseButton.type = 'button';
+                decreaseButton.textContent = '−';
+                decreaseButton.setAttribute('aria-label', `Decrease quantity of ${item.name}`);
+                const quantityLabel = document.createElement('span');
+                quantityLabel.className = 'cart-quantity-value';
+                quantityLabel.textContent = quantity;
+                const increaseButton = document.createElement('button');
+                increaseButton.className = 'cart-quantity-button';
+                increaseButton.type = 'button';
+                increaseButton.textContent = '+';
+                increaseButton.setAttribute('aria-label', `Increase quantity of ${item.name}`);
+                quantityControls.append(decreaseButton, quantityLabel, increaseButton);
+
+                decreaseButton.addEventListener('click', () => {
+                    if (quantity === 1) cartItems.splice(index, 1);
+                    else item.quantity = quantity - 1;
                     localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
                     renderCart();
                 });
+                increaseButton.addEventListener('click', () => {
+                    item.quantity = quantity + 1;
+                    localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+                    renderCart();
+                });
+
+                row.append(details, totalLabel, quantityControls);
                 cartList.appendChild(row);
             });
-            const orderText = cartItems.length ? `Hi Vintoera, I would like to order: ${cartItems.map((item) => `${item.name} x${item.quantity || 1} (${item.price} each)`).join(', ')}. Total: ₹${total}.` : 'Hi Vintoera, I would like to know more about your collection.';
-            document.getElementById('checkout-whatsapp').href = `https://wa.me/917708564234?text=${encodeURIComponent(orderText)}`;
         }
+
+        document.getElementById('customer-details-form').addEventListener('submit', (event) => {
+            if (cartItems.length === 0) {
+                event.preventDefault();
+                return;
+            }
+
+            const customerName = document.getElementById('customer-name').value.trim();
+            const address = document.getElementById('delivery-address').value.trim();
+            const city = document.getElementById('delivery-city').value.trim();
+            const state = document.getElementById('delivery-state').value.trim();
+            const postalCode = document.getElementById('delivery-postal-code').value.trim();
+            const total = cartItems.reduce((sum, item) => sum + Number(item.price.replace(/[^0-9.]/g, '')) * (item.quantity || 1), 0);
+            const orderText = [
+                'Hi Vintoera, I would like to place an order.',
+                `Name: ${customerName}`,
+                `Delivery address: ${address}, ${city}, ${state} ${postalCode}`,
+                `Items: ${cartItems.map((item) => `${item.name} x${item.quantity || 1} (unit price ${item.price})`).join(', ')}`,
+                `Total: ₹${total}.`
+            ].join('\n');
+            event.currentTarget.action = `https://wa.me/917708564234?text=${encodeURIComponent(orderText)}`;
+        });
 
         renderCart();
     </script>

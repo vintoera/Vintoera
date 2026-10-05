@@ -22,19 +22,25 @@
 			<div class="detail-copy">
 				<p class="eyebrow">The Vintoera edit</p>
 				<h1 id="product-name">Anti-Tarnish Chain</h1>
-				<p class="detail-price" id="product-price">₹250</p>
+				<p class="detail-price" id="product-price">₹250 per piece</p>
+				<div class="variant-picker" id="poster-size-picker" hidden>
+					<p class="variant-label">Choose a poster size</p>
+					<div class="variant-options" id="poster-size-options"></div>
+				</div>
 				<div class="variant-picker" id="model-variants" hidden>
 					<p class="variant-label">Choose your model</p>
+					<button class="variant-back-button" id="poster-size-back" type="button" hidden>← Back to poster sizes</button>
 					<div class="variant-options" id="variant-options"></div>
 				</div>
 				<div class="rule"></div>
 				<p id="product-description">A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.</p>
-				<ul class="details-list"><li>Premium anti-tarnish finish</li><li>Skin-friendly and nickel-free</li><li>Made for everyday wear</li></ul>
+				<ul class="details-list" id="product-details"></ul>
 				<div class="quantity-picker" aria-label="Quantity">
 					<button type="button" id="quantity-decrease" aria-label="Decrease quantity">−</button>
 					<span id="quantity-value">1</span>
 					<button type="button" id="quantity-increase" aria-label="Increase quantity">+</button>
 				</div>
+				<p class="quantity-subtotal"><span id="quantity-summary-label">Subtotal for 1 piece</span><strong id="quantity-total">₹250</strong></p>
 				<button class="button cart-add-detail" id="add-to-cart" type="button">Add to cart</button>
 				<a class="button whatsapp-button" id="whatsapp-link" href="https://wa.me/917708564234" target="_blank" rel="noreferrer"><span aria-hidden="true">◌</span> Order on WhatsApp</a>
 				<a class="instagram-link" href="https://www.instagram.com/vintoera?stkn=NDZ3bmsxb2o0eTZz" target="_blank" rel="noreferrer">See more from Vintoera on Instagram <span aria-hidden="true">↗</span></a>
@@ -43,59 +49,352 @@
 	</main>
 	<script>
 		const products = {
-			chain: { name: 'Anti-Tarnish Chain', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
-			chain: { name: 'Signature Chain Collection', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A delicate everyday chain with a warm gold finish. Lightweight, versatile, and made to layer beautifully with the pieces you already love.', variants: [{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85' }, { name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85' }, { name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85' }, { name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85' }] },
-			'phone-charms': { name: 'Phone Charms', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg', description: 'Playful handmade phone charms with colourful beads and cheerful shapes. Choose the model that feels most like you.', variants: [
-				{ name: 'Pastel Stars', price: '₹119', image: '1000266056.png' },
-				{ name: 'Flower Garden', price: '₹119', image: 'Flower Garden.jpeg' },
-				{ name: 'Rainbow Stars', price: '₹119', image: 'Rainbow Stars.png' },
-				{ name: 'Pink & Green Stars', price: '₹119', image: 'Pink & Green Stars.jpeg' },
-				{ name: 'Sweet Hearts', price: '₹119', image: 'Sweet Hearts.png' },
-				{ name: 'Colourful Flowers', price: '₹119', image: 'Colourful Flowers.png' },
-				{ name: 'Butterfly Garden', price: '₹119', image: 'Butterfly Garden.png' },
-				{ name: 'Lemon Hearts', price: '₹119', image: 'Lemon Hearts.png' },
-				{ name: 'Heart & Flower', price: '₹119', image: 'Heart & Flower.png' },
-				{ name: 'Soft Blue Hearts', price: '₹119', image: 'Soft Blue Hearts.png' }
+			'poster-collection': {
+				name: 'Poster Collection',
+				price: '₹149',
+				image: 'poster-collection-preview.svg',
+				description: 'Choose a poster size, then browse 20 designs in that collection.',
+				details: ['Three poster sizes to choose from', 'Twenty editable poster designs in each size', 'Update each poster’s image, price, and description in the poster collection data'],
+				posterSizes: [
+					{
+						name: 'A3 Poster Collection',
+						price: '₹299',
+						description: 'Explore 20 botanical and decorative designs in A3 format.',
+						image: 'poster-collection-preview.svg',
+						posters: [
+							{ name: 'A3 Poster Design 01 — Botanical Bloom', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 botanical print featuring a graceful floral study in warm natural tones.' },
+							{ name: 'A3 Poster Design 02 — Garden Study', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 garden-inspired print with a calm, leafy composition.' },
+							{ name: 'A3 Poster Design 03 — Wildflower Notes', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 wildflower artwork designed to bring a soft botanical accent to a room.' },
+							{ name: 'A3 Poster Design 04 — Sunlit Petals', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 floral artwork with a bright, sun-warmed palette.' },
+							{ name: 'A3 Poster Design 05 — Meadow Forms', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 decorative print inspired by the simple shapes of a meadow.' },
+							{ name: 'A3 Poster Design 06 — Botanical Lines', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 botanical composition with a clean, modern feel.' },
+							{ name: 'A3 Poster Design 07 — Petal Portrait', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 floral portrait print for a statement wall or gallery display.' },
+							{ name: 'A3 Poster Design 08 — Greenhouse', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 plant-inspired artwork in soothing garden colours.' },
+							{ name: 'A3 Poster Design 09 — Pressed Flowers', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 print inspired by the delicate look of pressed flowers.' },
+							{ name: 'A3 Poster Design 10 — Spring Garden', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 spring-themed decorative poster with an airy floral mood.' },
+							{ name: 'A3 Poster Design 11 — Quiet Bloom', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 understated botanical artwork for a relaxed interior.' },
+							{ name: 'A3 Poster Design 12 — Floral Reverie', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 floral art print with a gentle, dreamy character.' },
+							{ name: 'A3 Poster Design 13 — Leaf & Light', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 leafy composition featuring a warm and light palette.' },
+							{ name: 'A3 Poster Design 14 — Cottage Garden', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 decorative artwork inspired by a traditional cottage garden.' },
+							{ name: 'A3 Poster Design 15 — Flower Field', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 floral field print with an inviting, nature-led look.' },
+							{ name: 'A3 Poster Design 16 — Earthy Botanicals', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 botanical wall art in earthy, muted colours.' },
+							{ name: 'A3 Poster Design 17 — Petal Garden', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 garden artwork celebrating soft petal shapes and natural forms.' },
+							{ name: 'A3 Poster Design 18 — Botanical Muse', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 art print with a graceful botanical theme.' },
+							{ name: 'A3 Poster Design 19 — Floral Calm', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 calming floral composition for a bedroom or living space.' },
+							{ name: 'A3 Poster Design 20 — Nature in Bloom', price: '₹299', image: 'poster-collection-preview.svg', description: 'A3 nature-inspired poster with a fresh, blooming theme.' }
+						]
+					},
+					{
+						name: 'Medium Poster Set',
+						price: '₹199',
+						description: 'Browse 20 medium-size poster designs, ideal for a small gallery wall.',
+						image: 'poster-collection-preview.svg',
+						posters: [
+							{ name: 'Medium Poster Design 01 — Botanical Bloom', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium botanical print featuring a graceful floral study in warm natural tones.' },
+							{ name: 'Medium Poster Design 02 — Garden Study', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium garden-inspired print with a calm, leafy composition.' },
+							{ name: 'Medium Poster Design 03 — Wildflower Notes', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium wildflower artwork designed to bring a soft botanical accent to a room.' },
+							{ name: 'Medium Poster Design 04 — Sunlit Petals', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium floral artwork with a bright, sun-warmed palette.' },
+							{ name: 'Medium Poster Design 05 — Meadow Forms', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium decorative print inspired by the simple shapes of a meadow.' },
+							{ name: 'Medium Poster Design 06 — Botanical Lines', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium botanical composition with a clean, modern feel.' },
+							{ name: 'Medium Poster Design 07 — Petal Portrait', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium floral portrait print for a statement wall or gallery display.' },
+							{ name: 'Medium Poster Design 08 — Greenhouse', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium plant-inspired artwork in soothing garden colours.' },
+							{ name: 'Medium Poster Design 09 — Pressed Flowers', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium print inspired by the delicate look of pressed flowers.' },
+							{ name: 'Medium Poster Design 10 — Spring Garden', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium spring-themed decorative poster with an airy floral mood.' },
+							{ name: 'Medium Poster Design 11 — Quiet Bloom', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium understated botanical artwork for a relaxed interior.' },
+							{ name: 'Medium Poster Design 12 — Floral Reverie', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium floral art print with a gentle, dreamy character.' },
+							{ name: 'Medium Poster Design 13 — Leaf & Light', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium leafy composition featuring a warm and light palette.' },
+							{ name: 'Medium Poster Design 14 — Cottage Garden', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium decorative artwork inspired by a traditional cottage garden.' },
+							{ name: 'Medium Poster Design 15 — Flower Field', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium floral field print with an inviting, nature-led look.' },
+							{ name: 'Medium Poster Design 16 — Earthy Botanicals', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium botanical wall art in earthy, muted colours.' },
+							{ name: 'Medium Poster Design 17 — Petal Garden', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium garden artwork celebrating soft petal shapes and natural forms.' },
+							{ name: 'Medium Poster Design 18 — Botanical Muse', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium art print with a graceful botanical theme.' },
+							{ name: 'Medium Poster Design 19 — Floral Calm', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium calming floral composition for a bedroom or living space.' },
+							{ name: 'Medium Poster Design 20 — Nature in Bloom', price: '₹199', image: 'poster-collection-preview.svg', description: 'Medium nature-inspired poster with a fresh, blooming theme.' }
+						]
+					},
+					{
+						name: 'Mini Poster Set',
+						price: '₹149',
+						description: 'Choose from 20 mini poster designs, sized for compact displays and gifting.',
+						image: 'poster-collection-preview.svg',
+						posters: [
+							{ name: 'Mini Poster Design 01 — Botanical Bloom', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini botanical print featuring a graceful floral study in warm natural tones.' },
+							{ name: 'Mini Poster Design 02 — Garden Study', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini garden-inspired print with a calm, leafy composition.' },
+							{ name: 'Mini Poster Design 03 — Wildflower Notes', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini wildflower artwork designed to bring a soft botanical accent to a room.' },
+							{ name: 'Mini Poster Design 04 — Sunlit Petals', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini floral artwork with a bright, sun-warmed palette.' },
+							{ name: 'Mini Poster Design 05 — Meadow Forms', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini decorative print inspired by the simple shapes of a meadow.' },
+							{ name: 'Mini Poster Design 06 — Botanical Lines', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini botanical composition with a clean, modern feel.' },
+							{ name: 'Mini Poster Design 07 — Petal Portrait', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini floral portrait print for a statement wall or gallery display.' },
+							{ name: 'Mini Poster Design 08 — Greenhouse', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini plant-inspired artwork in soothing garden colours.' },
+							{ name: 'Mini Poster Design 09 — Pressed Flowers', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini print inspired by the delicate look of pressed flowers.' },
+							{ name: 'Mini Poster Design 10 — Spring Garden', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini spring-themed decorative poster with an airy floral mood.' },
+							{ name: 'Mini Poster Design 11 — Quiet Bloom', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini understated botanical artwork for a relaxed interior.' },
+							{ name: 'Mini Poster Design 12 — Floral Reverie', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini floral art print with a gentle, dreamy character.' },
+							{ name: 'Mini Poster Design 13 — Leaf & Light', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini leafy composition featuring a warm and light palette.' },
+							{ name: 'Mini Poster Design 14 — Cottage Garden', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini decorative artwork inspired by a traditional cottage garden.' },
+							{ name: 'Mini Poster Design 15 — Flower Field', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini floral field print with an inviting, nature-led look.' },
+							{ name: 'Mini Poster Design 16 — Earthy Botanicals', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini botanical wall art in earthy, muted colours.' },
+							{ name: 'Mini Poster Design 17 — Petal Garden', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini garden artwork celebrating soft petal shapes and natural forms.' },
+							{ name: 'Mini Poster Design 18 — Botanical Muse', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini art print with a graceful botanical theme.' },
+							{ name: 'Mini Poster Design 19 — Floral Calm', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini calming floral composition for a bedroom or living space.' },
+							{ name: 'Mini Poster Design 20 — Nature in Bloom', price: '₹149', image: 'poster-collection-preview.svg', description: 'Mini nature-inspired poster with a fresh, blooming theme.' }
+						]
+					}
+				]
+			},
+			chain: {
+				name: 'Signature Chain Collection',
+				price: '₹250',
+				image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85',
+				description: 'Explore the Signature Chain Collection, with versatile chain styles for layering or wearing as a simple everyday accent.',
+				details: ['Lightweight chain for comfortable wear', 'Versatile length for layering', 'Wipe gently with a soft, dry cloth'],
+				variants: [
+					{ name: 'Classic Link', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'A polished classic-link chain with a timeless silhouette that pairs easily with everyday outfits.' },
+					{ name: 'Slim Rope', price: '₹300', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1200&q=85', description: 'A fine rope-style chain with a subtle textured shine, ideal for wearing alone or layering.' },
+					{ name: 'Pearl Link', price: '₹350', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85', description: 'A delicate chain accented with pearl details for a softer, dressier finish.' },
+					{ name: 'Layered Cable', price: '₹400', image: 'https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1200&q=85', description: 'A layered cable-chain look that adds dimension without needing extra styling.' },
+					{ name: 'Chain Design 05', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 05. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 06', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 06. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 07', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 07. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 08', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 08. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 09', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 09. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 10', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 10. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 11', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 11. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 12', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 12. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 13', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 13. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 14', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 14. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 15', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 15. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 16', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 16. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 17', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 17. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 18', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 18. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 19', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 19. Replace the photo and description with this chain’s link style, finish, and styling details.' },
+					{ name: 'Chain Design 20', price: '₹250', image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=1200&q=85', description: 'Placeholder for chain design 20. Replace the photo and description with this chain’s link style, finish, and styling details.' }
+				]
+			},
+			'phone-charms': { name: 'Phone Charms', price: '₹119', image: 'PXL_20260913_131755451.PORTRAIT.ORIGINAL~2.jpg', description: 'Playful handmade phone charms with colourful beads and cheerful shapes. Choose the model that feels most like you.', details: ['Colourful bead and charm details', 'A playful accessory for your phone', 'Handle the attachment loop gently'], variants: [
+				{ name: 'Pastel Stars', price: '₹119', image: '1000266056.png', description: 'A pastel-toned phone charm decorated with star details for a soft, playful look.' },
+				{ name: 'Flower Garden', price: '₹119', image: 'Flower Garden.jpeg', description: 'A cheerful floral phone charm inspired by a colourful little garden.' },
+				{ name: 'Rainbow Stars', price: '₹119', image: 'Rainbow Stars.png', description: 'A bright phone charm featuring rainbow colours and star-shaped accents.' },
+				{ name: 'Pink & Green Stars', price: '₹119', image: 'Pink & Green Stars.jpeg', description: 'A colourful mix of pink and green tones finished with star details.' },
+				{ name: 'Sweet Hearts', price: '₹119', image: 'Sweet Hearts.png', description: 'A sweet, playful charm decorated with heart details in soft colours.' },
+				{ name: 'Colourful Flowers', price: '₹119', image: 'Colourful Flowers.png', description: 'A lively floral design with colourful flower accents for your phone.' },
+				{ name: 'Butterfly Garden', price: '₹119', image: 'Butterfly Garden.png', description: 'A whimsical phone charm with butterfly and garden-inspired colours.' },
+				{ name: 'Lemon Hearts', price: '₹119', image: 'Lemon Hearts.png', description: 'A fresh lemon-inspired colour palette paired with cheerful heart details.' },
+				{ name: 'Heart & Flower', price: '₹119', image: 'Heart & Flower.png', description: 'A charming combination of heart and flower details in one colourful design.' },
+				{ name: 'Soft Blue Hearts', price: '₹119', image: 'Soft Blue Hearts.png', description: 'A gentle soft-blue phone charm decorated with heart-shaped accents.' }
 			] },
-			pearl: { name: 'Lunova Chain Collection', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'A refined collection of preserved-flower resin chains designed to bring colour and character to everyday dressing.' },
-			'resin-chain': { name: 'Earring Collection', price: '₹350', image: 'Earring collection image.jpg', description: 'A playful earring collection with colourful detail and a glossy finish, made for everyday styling.' },
-			'resin-bracelet': { name: 'Lunova Bracelet Collection', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'A lightweight handmade bracelet with a refined resin detail, designed to add a little colour to your everyday stack.' },
-			'resin-keychain': { name: 'Keychain Collection', price: '₹30', image: 'Paw Keys.jpeg', description: 'A cheerful keychain to personalise your keys, bag, or gifting moments.', variants: [
-				{ name: 'Blue Paw', price: '₹180', images: ['Paw Blue.jpeg', 'Paw Blue L.jpeg', 'Paw Keys.jpeg'] },
-				{ name: 'Yellow Paw', price: '₹180', images: ['Yellow Paw.jpeg', 'Yellow Paw L.jpeg', 'Paw Keys.jpeg'] },
-				{ name: 'Yellow Paw 2', price: '₹180', images: ['Yellow Paw 2.jpeg', 'Yellow Paw 2L.jpeg', 'Paw Keys.jpeg'] },
-				{ name: 'Keychain 04', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 05', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 06', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 07', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 08', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 09', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 10', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 11', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 12', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 13', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 14', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 15', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 16', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 17', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 18', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 19', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 20', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 21', price: '₹30', images: ['Keychain front image 2.jpg'] },
-				{ name: 'Keychain 22', price: '₹30', images: ['Keychain front image 2.jpg'] }
+			pearl: {
+				name: 'Lunova Chain Collection',
+				price: '₹250',
+				image: 'Resin chains front image 2.jpg',
+				description: 'A refined collection of resin chains featuring preserved-flower details, designed to bring colour and character to everyday dressing.',
+				details: ['Resin pendant with decorative floral detail', 'Individual floral patterns and colours', 'Store away from heat and direct sunlight'],
+				variants: [
+					{ name: 'Lunova Chain Design 01', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 01. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 02', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 02. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 03', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 03. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 04', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 04. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 05', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 05. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 06', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 06. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 07', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 07. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 08', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 08. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 09', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 09. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 10', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 10. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 11', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 11. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 12', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 12. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 13', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 13. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 14', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 14. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 15', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 15. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 16', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 16. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 17', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 17. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 18', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 18. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 19', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 19. Replace with its flower colour, resin finish, pendant shape, and chain style.' },
+					{ name: 'Lunova Chain Design 20', price: '₹250', image: 'Resin chains front image 2.jpg', description: 'Placeholder chain design 20. Replace with its flower colour, resin finish, pendant shape, and chain style.' }
+				]
+			},
+			'resin-chain': {
+				name: 'Earring Collection',
+				price: '₹350',
+				image: 'Earring collection image.jpg',
+				description: 'Explore lightweight earrings with colourful details and a polished finish, designed to bring a little personality to everyday and occasion looks.',
+				details: ['Lightweight design for comfortable wear', 'Colourful details add a playful finishing touch', 'Store dry and wipe gently after wearing'],
+				variants: [
+					{ name: 'Earring Design 01', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 01. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 02', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 02. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 03', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 03. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 04', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 04. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 05', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 05. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 06', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 06. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 07', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 07. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 08', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 08. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 09', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 09. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 10', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 10. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 11', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 11. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 12', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 12. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 13', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 13. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 14', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 14. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 15', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 15. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 16', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 16. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 17', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 17. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 18', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 18. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 19', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 19. Replace the photo and description with its shape, colour, material, and finish.' },
+					{ name: 'Earring Design 20', price: '₹350', image: 'Earring collection image.jpg', description: 'Placeholder for earring design 20. Replace the photo and description with its shape, colour, material, and finish.' }
+				]
+			},
+			'resin-bracelet': {
+				name: 'Lunova Bracelet Collection',
+				price: '₹300',
+				image: 'Resin bracelet front image.jpg',
+				description: 'A lightweight handmade bracelet with a refined resin detail, designed to add a little colour to your everyday stack.',
+				details: ['Lightweight bracelet for everyday styling', 'Colourful resin detail adds a subtle accent', 'Keep away from harsh chemicals and moisture'],
+				variants: [
+					{ name: 'Lunova Bracelet Design 01', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 01. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 02', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 02. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 03', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 03. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 04', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 04. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 05', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 05. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 06', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 06. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 07', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 07. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 08', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 08. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 09', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 09. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 10', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 10. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 11', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 11. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 12', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 12. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 13', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 13. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 14', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 14. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 15', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 15. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 16', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 16. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 17', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 17. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 18', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 18. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 19', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 19. Replace with its resin colour, shape, bracelet style, and finish.' },
+					{ name: 'Lunova Bracelet Design 20', price: '₹300', image: 'Resin bracelet front image.jpg', description: 'Placeholder bracelet design 20. Replace with its resin colour, shape, bracelet style, and finish.' }
+				]
+			},
+			'resin-keychain': { name: 'Keychain Collection', price: '₹30', image: 'Paw Keys.jpeg', description: 'A cheerful keychain collection to personalise your keys or bag, with colourful paw and resin designs.', details: ['Lightweight charm for keys or bags', 'Decorative paw and resin designs', 'Wipe gently with a soft cloth'], variants: [
+				{ name: 'Blue Paw', price: '₹180', images: ['Paw Blue.jpeg', 'Paw Blue L.jpeg', 'Paw Keys.jpeg'], description: 'A blue paw-shaped resin keychain with a bright colour accent and coordinating details.' },
+				{ name: 'Yellow Paw', price: '₹180', images: ['Yellow Paw.jpeg', 'Yellow Paw L.jpeg', 'Paw Keys.jpeg'], description: 'A sunny yellow paw-shaped resin keychain that is easy to spot on your keys or bag.' },
+				{ name: 'Yellow Paw 2', price: '₹180', images: ['Yellow Paw 2.jpeg', 'Yellow Paw 2L.jpeg', 'Paw Keys.jpeg'], description: 'A second yellow paw design with its own resin pattern and cheerful finish.' },
+				{ name: 'Keychain 04', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 04. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 05', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 05. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 06', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 06. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 07', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 07. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 08', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 08. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 09', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 09. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 10', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 10. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 11', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 11. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 12', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 12. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 13', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 13. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 14', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 14. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 15', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 15. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 16', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 16. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 17', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 17. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 18', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 18. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 19', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 19. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 20', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 20. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 21', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 21. Replace with the actual charm shape, colour, material, and care details.' },
+				{ name: 'Keychain 22', price: '₹30', images: ['Keychain front image 2.jpg'], description: 'Placeholder keychain design 22. Replace with the actual charm shape, colour, material, and care details.' }
 			] },
-			'car-frame': { name: '3D Car Frame', price: '₹550', image: 'https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1200&q=85', description: 'A personalised 3D car frame made to bring colour and character to your drive.' },
-			'home-accessory': { name: 'Home Little Accessory', price: '₹199', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=85', description: 'A small accent for your home, designed to make everyday corners feel more personal.', variants: [
-				{ name: 'Mini Door Bell', price: '₹199', images: ['Mini Door Bell.jpeg'] },
-				{ name: 'Murugan Vel for Car Dashboard Metal Idol', price: '₹199', images: ['Murugan Vel for Car Dashboard Metal Idol.jpeg'] },
-				{ name: 'Home accessory', price: '₹199', images: ['Mini Door Bell 3.jpeg'] },
-				{ name: 'Mini Door Bell 4', price: '₹199', images: ['Mini Door Bell 4.jpeg'] }
+			'car-frame': {
+				name: '3D Car Frame',
+				price: '₹550',
+				image: 'car-frame-ravenger.jpg',
+				description: 'Choose a miniature car frame design. Each piece features a model car mounted in a display frame.',
+				details: ['Miniature car mounted inside a display frame', 'Graphic background styled to complement the vehicle', 'Display on a desk, shelf, or wall'],
+				variants: [
+					{
+						name: 'Ravenger',
+						price: '₹550',
+						image: 'car-frame-ravenger.jpg',
+						description: 'A blue Ravenger miniature car displayed in a bold blue-and-black frame.'
+					},
+					{
+						name: 'Mazda',
+						price: '₹550',
+						image: 'car-frame-mazda.jpg',
+						description: 'A yellow Mazda miniature car displayed in a black frame with yellow racing stripes.'
+					},
+					{
+						name: 'Dodge Viper',
+						price: '₹550',
+						image: 'car-frame-dodge-viper.jpg',
+						description: 'A blue Dodge Viper miniature car displayed in a black frame with blue detailing.'
+					},
+					{
+						name: '1967 Mustang',
+						price: '₹550',
+						image: 'car-frame-1967-mustang.jpg',
+						description: 'A black 1967 Mustang miniature car displayed in a dark frame with silver stripes.'
+					},
+					{
+						name: 'Huracan',
+						price: '₹550',
+						image: 'car-frame-huracan.jpg',
+						description: 'A blue Huracan miniature car displayed in a deep blue frame.'
+					},
+					{
+						name: 'Porsche 911 Carrera',
+						price: '₹550',
+						image: 'car-frame-porsche-911.jpg',
+						description: 'A black Porsche 911 Carrera miniature car displayed in a dark frame with copper accents.'
+					},
+					{ name: 'Car Frame Design 07', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 07. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 08', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 08. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 09', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 09. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 10', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 10. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 11', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 11. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 12', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 12. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 13', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 13. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 14', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 14. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 15', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 15. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 16', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 16. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 17', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 17. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 18', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 18. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 19', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 19. Replace with the vehicle model, frame colours, and display dimensions.' },
+					{ name: 'Car Frame Design 20', price: '₹550', image: 'car-frame-ravenger.jpg', description: 'Placeholder car-frame design 20. Replace with the vehicle model, frame colours, and display dimensions.' }
+				]
+			},
+			'home-accessory': { name: 'Home Little Accessory', price: '₹199', image: 'Mini Door Bell.jpeg', description: 'Small decorative accents for home and car interiors, chosen to bring personality to everyday spaces.', details: ['Compact decorative accent for a home or car', 'Designed to add character to a small space', 'Dust gently with a soft, dry cloth'], variants: [
+				{ name: 'Mini Door Bell', price: '₹199', images: ['Mini Door Bell.jpeg'], description: 'A miniature decorative door bell for adding a charming accent to your home.' },
+				{ name: 'Murugan Vel for Car Dashboard Metal Idol', price: '₹199', images: ['Murugan Vel for Car Dashboard Metal Idol.jpeg'], description: 'A devotional Murugan Vel metal idol designed as a meaningful car-dashboard accessory.' },
+				{ name: 'Home accessory', price: '₹199', images: ['Mini Door Bell 3.jpeg'], description: 'A small decorative accessory selected to bring a personal touch to your home.' },
+				{ name: 'Mini Door Bell 4', price: '₹199', images: ['Mini Door Bell 4.jpeg'], description: 'A decorative mini door bell with a distinctive shape for a shelf or entryway.' }
 			] },
-			'boys-earrings': { name: "Men's Collection", price: '₹180', image: 'Men accessories front image.jpg', description: 'A considered men’s collection with clean, comfortable pieces for everyday styling.' },
-			'bracelet-chain': { name: 'Hand charms', price: '₹300', image: 'Hand charm image.jpg', description: 'A versatile hand charm collection designed to add a playful detail to your everyday look.' }
+			'boys-earrings': { name: "Men's Collection", price: '₹180', image: 'Men accessories front image.jpg', description: 'A considered men’s accessories collection with clean, comfortable pieces for everyday styling.', details: ['Versatile accessory for everyday outfits', 'Simple styling that pairs with casual or smart looks', 'Store neatly to protect the finish'] },
+			'bracelet-chain': {
+				name: 'Hand charms',
+				price: '₹300',
+				image: 'Hand charm image.jpg',
+				description: 'A decorative hand harness that pairs a bracelet with a connecting chain and ring for a distinctive jewellery accent.',
+				details: ['Bracelet and ring linked with a decorative chain', 'Designed to sit across the hand', 'Check fit and adjust gently before wearing'],
+				variants: [
+					{ name: 'Hand Charm Design 01', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 01. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 02', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 02. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 03', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 03. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 04', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 04. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 05', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 05. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 06', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 06. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 07', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 07. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 08', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 08. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 09', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 09. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 10', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 10. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 11', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 11. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 12', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 12. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 13', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 13. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 14', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 14. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 15', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 15. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 16', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 16. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 17', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 17. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 18', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 18. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 19', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 19. Replace the photo and description with its chain style, detailing, and fit.' },
+					{ name: 'Hand Charm Design 20', price: '₹300', image: 'Hand charm image.jpg', description: 'Placeholder for hand charm design 20. Replace the photo and description with its chain style, detailing, and fit.' }
+				]
+			}
 		};
 		const product = products[new URLSearchParams(window.location.search).get('product')] || products.chain;
 		const productImage = document.getElementById('product-image');
+		const posterSizePicker = document.getElementById('poster-size-picker');
+		const posterSizeOptions = document.getElementById('poster-size-options');
+		const posterSizeBackButton = document.getElementById('poster-size-back');
 		const previousImageButton = document.getElementById('previous-image');
 		const nextImageButton = document.getElementById('next-image');
 		let currentImages = [product.image];
@@ -123,6 +422,16 @@
 		document.getElementById('crumb-name').textContent = product.name;
 		document.getElementById('product-price').textContent = product.price;
 		document.getElementById('product-description').textContent = product.description;
+		const productDetails = document.getElementById('product-details');
+		function renderProductDetails(details) {
+			productDetails.replaceChildren();
+			(details || []).forEach((detail) => {
+				const item = document.createElement('li');
+				item.textContent = detail;
+				productDetails.appendChild(item);
+			});
+		}
+		renderProductDetails(product.details);
 		showCurrentImage();
 		document.getElementById('product-image').alt = product.name;
 		const variantPicker = document.getElementById('model-variants');
@@ -133,19 +442,35 @@
 		const getCartPieces = (items) => items.reduce((sum, item) => sum + (item.quantity || 1), 0);
 		productCartCount.textContent = getCartPieces(JSON.parse(localStorage.getItem('vintoera-cart') || '[]'));
 		let selectedVariant = null;
+		let selectedPosterSize = null;
 		let quantity = 1;
 		const quantityValue = document.getElementById('quantity-value');
+		const quantityTotal = document.getElementById('quantity-total');
+		const quantitySummaryLabel = document.getElementById('quantity-summary-label');
+		const getPriceAmount = (price) => Number(price.replace(/[^0-9.]/g, ''));
+		function updateQuantitySummary() {
+			const unitPrice = getPriceAmount(selectedVariant ? selectedVariant.price : (selectedPosterSize ? selectedPosterSize.price : product.price));
+			quantitySummaryLabel.textContent = `Subtotal for ${quantity} ${quantity === 1 ? 'piece' : 'pieces'}`;
+			quantityTotal.textContent = `₹${(unitPrice * quantity).toLocaleString('en-IN')}`;
+		}
 		document.getElementById('quantity-decrease').addEventListener('click', () => {
 			quantity = Math.max(1, quantity - 1);
 			quantityValue.textContent = quantity;
+			updateQuantitySummary();
+			updateOrderLink();
 		});
 		document.getElementById('quantity-increase').addEventListener('click', () => {
 			quantity += 1;
 			quantityValue.textContent = quantity;
+			updateQuantitySummary();
+			updateOrderLink();
 		});
 		addToCartButton.addEventListener('click', () => {
+			if (addToCartButton.disabled) return;
 			const cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
-			const itemName = selectedVariant ? selectedVariant.name : product.name;
+			const itemName = selectedVariant
+				? `${selectedPosterSize ? `${selectedPosterSize.name} - ` : ''}${selectedVariant.name}`
+				: product.name;
 			const itemPrice = selectedVariant ? selectedVariant.price : product.price;
 			const existingItem = cartItems.find((item) => item.name === itemName && item.price === itemPrice);
 			if (existingItem) existingItem.quantity = (existingItem.quantity || 1) + quantity;
@@ -156,35 +481,135 @@
 		});
 
 		function updateOrderLink() {
-			const orderName = selectedVariant ? `${product.name} - ${selectedVariant.name} (${selectedVariant.price})` : `${product.name} (${product.price})`;
-			whatsappLink.href = `https://wa.me/917708564234?text=${encodeURIComponent(`Hi Vintoera, I would like to order the ${orderName}.`)}`;
+			if (product.posterSizes && (!selectedPosterSize || !selectedVariant)) {
+				whatsappLink.href = '#';
+				whatsappLink.setAttribute('aria-disabled', 'true');
+				return;
+			}
+			whatsappLink.removeAttribute('aria-disabled');
+			const unitPrice = selectedVariant ? selectedVariant.price : product.price;
+			const orderName = selectedVariant
+				? `${selectedPosterSize ? `${selectedPosterSize.name} - ` : ''}${selectedVariant.name}`
+				: product.name;
+			const subtotal = getPriceAmount(unitPrice) * quantity;
+			whatsappLink.href = `https://wa.me/917708564234?text=${encodeURIComponent(`Hi Vintoera, I would like to order ${quantity} ${quantity === 1 ? 'piece' : 'pieces'} of ${orderName}. Unit price: ${unitPrice}. Subtotal: ₹${subtotal}.`)}`;
 		}
 
-		if (product.variants) {
-			variantPicker.hidden = false;
-			product.variants.forEach((variant, index) => {
+		function renderVariantOptions(variants) {
+			variantOptions.replaceChildren();
+			variants.forEach((variant) => {
 				const option = document.createElement('button');
 				option.className = 'variant-option';
 				option.type = 'button';
-				option.innerHTML = `<span>${variant.name}</span><strong>${variant.price}</strong>`;
+				const optionImage = document.createElement('img');
+				optionImage.className = 'variant-thumb';
+				optionImage.src = variant.image || (variant.images && variant.images[0]) || product.image;
+				optionImage.alt = variant.name;
+				optionImage.addEventListener('error', () => {
+					optionImage.onerror = null;
+					optionImage.src = product.image;
+				});
+				const optionName = document.createElement('span');
+				optionName.textContent = variant.name;
+				const optionPrice = document.createElement('strong');
+				optionPrice.textContent = variant.price;
+				option.append(optionImage, optionName, optionPrice);
 				option.addEventListener('click', () => {
 					selectedVariant = variant;
-					document.getElementById('product-name').textContent = variant.name;
-					document.getElementById('crumb-name').textContent = variant.name;
-					document.title = `Vintoera | ${variant.name}`;
-					document.getElementById('product-price').textContent = variant.price;
+					const displayName = selectedPosterSize ? `${selectedPosterSize.name} · ${variant.name}` : variant.name;
+					document.getElementById('product-name').textContent = displayName;
+					document.getElementById('crumb-name').textContent = displayName;
+					document.title = `Vintoera | ${displayName}`;
+					document.getElementById('product-price').textContent = `${variant.price} per piece`;
 					currentImages = variant.images || [variant.image];
 					currentImageIndex = 0;
 					showCurrentImage();
-					document.getElementById('product-image').alt = `${product.name} - ${variant.name}`;
-					document.querySelectorAll('.variant-option').forEach((item) => item.classList.remove('selected'));
+					productImage.alt = displayName;
+					document.getElementById('product-description').textContent = variant.description || product.description;
+					renderProductDetails(variant.details || product.details);
+					variantOptions.querySelectorAll('.variant-option').forEach((item) => item.classList.remove('selected'));
 					option.classList.add('selected');
+					addToCartButton.disabled = false;
+					updateQuantitySummary();
 					updateOrderLink();
 				});
 				variantOptions.appendChild(option);
-				if (index === 0) option.click();
 			});
+		}
+
+		if (product.posterSizes) {
+			posterSizePicker.hidden = false;
+			document.getElementById('product-price').textContent = 'Choose a poster size';
+			quantitySummaryLabel.textContent = 'Select a poster design';
+			quantityTotal.textContent = '—';
+			addToCartButton.disabled = true;
+			updateOrderLink();
+			product.posterSizes.forEach((size) => {
+				const option = document.createElement('button');
+				option.className = 'variant-option';
+				option.type = 'button';
+				const optionImage = document.createElement('img');
+				optionImage.className = 'variant-thumb';
+				optionImage.src = size.image;
+				optionImage.alt = size.name;
+				const optionName = document.createElement('span');
+				optionName.textContent = size.name;
+				const optionPrice = document.createElement('strong');
+				optionPrice.textContent = `20 designs · from ${size.price}`;
+				option.append(optionImage, optionName, optionPrice);
+				option.addEventListener('click', () => {
+					selectedPosterSize = size;
+					selectedVariant = null;
+					posterSizePicker.hidden = true;
+					variantPicker.hidden = false;
+					posterSizeBackButton.hidden = false;
+					variantPicker.querySelector('.variant-label').textContent = `Choose a design · ${size.name}`;
+					document.getElementById('product-name').textContent = size.name;
+					document.getElementById('crumb-name').textContent = size.name;
+					document.title = `Vintoera | ${size.name}`;
+					document.getElementById('product-price').textContent = `${size.price} per piece`;
+					document.getElementById('product-description').textContent = size.description;
+					renderProductDetails(product.details);
+					currentImages = [size.image];
+					currentImageIndex = 0;
+					showCurrentImage();
+					productImage.alt = size.name;
+					addToCartButton.disabled = true;
+					quantitySummaryLabel.textContent = 'Select a poster design';
+					quantityTotal.textContent = '—';
+					renderVariantOptions(size.posters);
+					updateOrderLink();
+				});
+				posterSizeOptions.appendChild(option);
+			});
+			posterSizeBackButton.addEventListener('click', () => {
+				selectedPosterSize = null;
+				selectedVariant = null;
+				posterSizePicker.hidden = false;
+				variantPicker.hidden = true;
+				posterSizeBackButton.hidden = true;
+				document.getElementById('product-name').textContent = product.name;
+				document.getElementById('crumb-name').textContent = product.name;
+				document.title = `Vintoera | ${product.name}`;
+				document.getElementById('product-price').textContent = 'Choose a poster size';
+				document.getElementById('product-description').textContent = product.description;
+				renderProductDetails(product.details);
+				currentImages = [product.image];
+				currentImageIndex = 0;
+				showCurrentImage();
+				productImage.alt = product.name;
+				addToCartButton.disabled = true;
+				quantitySummaryLabel.textContent = 'Select a poster design';
+				quantityTotal.textContent = '—';
+				updateOrderLink();
+			});
+		} else if (product.variants) {
+			variantPicker.hidden = false;
+			renderVariantOptions(product.variants);
+			variantOptions.querySelector('.variant-option').click();
 		} else {
+			updateQuantitySummary();
+			document.getElementById('product-price').textContent = `${product.price} per piece`;
 			updateOrderLink();
 		}
 	</script>
