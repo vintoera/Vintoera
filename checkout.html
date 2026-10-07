@@ -278,7 +278,10 @@
 
                 const controls = document.createElement('div');
                 controls.className = 'cart-row-controls';
-                controls.append(quantityControls, saveForLaterButton, removeButton);
+                const cartActions = document.createElement('div');
+                cartActions.className = 'cart-row-actions';
+                cartActions.append(quantityControls, removeButton);
+                controls.append(saveForLaterButton, cartActions);
                 row.append(thumbnail, details, totalLabel, controls);
                 cartList.appendChild(row);
             });
