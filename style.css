@@ -232,8 +232,9 @@ h2 { max-width: 480px; margin-bottom: 0; font-family: var(--display-font); font-
 .empty-cart { margin: 24px 0; color: var(--muted); font-size: 14px; }
 .checkout-card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
 .delivery-processing-note { margin: 24px 0 0; padding-top: 14px; border-top: 1px solid var(--line); color: var(--accent); font-family: var(--display-font); font-size: 16px; font-style: italic; line-height: 1.4; text-align: center; }
-.customer-details-form { display: flex; flex-direction: column; gap: 6px; }
-.customer-details-form label { margin-top: 4px; color: var(--ink); font-size: 12px; font-weight: 600; }
+.checkout-card h2 { margin: 0 0 16px; }
+.customer-details-form { display: flex; flex-direction: column; gap: 4px; }
+.customer-details-form label { margin-top: 2px; color: var(--ink); font-size: 12px; font-weight: 600; }
 .customer-details-form input, .customer-details-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: rgba(255, 255, 255, .65); font: inherit; font-size: 13px; }
 .customer-details-form textarea { min-height: 84px; resize: vertical; }
 .customer-details-form input:focus, .customer-details-form textarea:focus { border-color: var(--accent); outline: 2px solid rgba(168, 76, 53, .15); }

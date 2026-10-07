@@ -75,6 +75,30 @@
             const items = JSON.parse(localStorage.getItem(key) || '[]');
             return Array.isArray(items) ? items : [];
         };
+        const customerDetailsKey = 'vintoera-customer-details';
+        const customerDetailFields = {
+            name: document.getElementById('customer-name'),
+            address: document.getElementById('delivery-address'),
+            city: document.getElementById('delivery-city'),
+            state: document.getElementById('delivery-state'),
+            postalCode: document.getElementById('delivery-postal-code')
+        };
+        const savedCustomerDetails = JSON.parse(localStorage.getItem(customerDetailsKey) || 'null');
+        if (savedCustomerDetails && typeof savedCustomerDetails === 'object' && !Array.isArray(savedCustomerDetails)) {
+            Object.entries(customerDetailFields).forEach(([key, field]) => {
+                if (typeof savedCustomerDetails[key] === 'string') field.value = savedCustomerDetails[key];
+            });
+        }
+        document.getElementById('customer-details-form').addEventListener('input', () => {
+            const details = Object.fromEntries(
+                Object.entries(customerDetailFields).map(([key, field]) => [key, field.value])
+            );
+            if (Object.values(details).some((value) => value.trim())) {
+                localStorage.setItem(customerDetailsKey, JSON.stringify(details));
+            } else {
+                localStorage.removeItem(customerDetailsKey);
+            }
+        });
         let cartItems = readStoredItems('vintoera-cart');
         let savedForLaterItems = readStoredItems('vintoera-saved-for-later');
         const cartList = document.getElementById('cart-items');
