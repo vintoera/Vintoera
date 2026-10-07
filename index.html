@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="shipping-announcement" role="note" aria-label="Complimentary shipping across Tamil Nadu on orders above ₹799">
+        <div class="shipping-announcement-track" aria-hidden="true">
+            <span>Complimentary shipping across Tamil Nadu on orders above <strong>₹799</strong></span>
+            <span class="shipping-announcement-star">✧</span>
+            <span>Complimentary shipping across Tamil Nadu on orders above <strong>₹799</strong></span>
+            <span class="shipping-announcement-star">✧</span>
+        </div>
+    </div>
     <header class="site-header">
         <a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -154,7 +162,7 @@
                         <div class="product-image"><img src="IMG_1676 (1).webp" alt="Batman miniature car frames"></div>
                         <div class="product-info"><h3>3D Car Frame</h3><p>From ₹550</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
-                    <a class="product-card" href="product.html?product=poster-collection">
+                    <a class="product-card" href="product.html?product=poster-collection" data-search-variants="A3 Poster Collection|A4 Poster Collection|Mini Poster Set" data-search-variant-param="posterSize">
                         <div class="product-image"><img src="poster-collection-preview.svg" alt="Botanical poster collection preview"></div>
                         <div class="product-info"><h3>Posters</h3><p>From ₹149</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
@@ -174,6 +182,10 @@
                         <div class="product-image"><img src="Earring collection image.jpg" alt="Handmade earring collection"></div>
                         <div class="product-info"><h3>Earring Collection</h3><p>₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
+                    <a class="product-card" href="product.html?product=hair-accessories">
+                        <div class="product-image"><img src="hair-accessory-preview.svg" alt="Hair accessories collection preview"></div>
+                        <div class="product-info"><h3>Hair Accessories</h3><p>From ₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
                     <a class="product-card" href="product.html?product=bracelet-chain">
                         <div class="product-image"><img src="Hand charm image.jpg" alt="Colourful beaded hand charm bracelets"></div>
                         <div class="product-info"><h3>Hand charms</h3><p>₹49</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
@@ -182,7 +194,7 @@
                         <div class="product-image"><img src="Men accessories front image.jpg" alt="Men's accessories collection"></div>
                         <div class="product-info"><h3>Men's Collection</h3><p>₹120</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
-                    <a class="product-card" href="product.html?product=phone-charms">
+                    <a class="product-card" href="product.html?product=phone-charms" data-search-variants="Pastel Stars|Flower Garden|Rainbow Stars|Pink &amp; Green Stars|Sweet Hearts|Colourful Flowers|Butterfly Garden|Lemon Hearts|Heart &amp; Flower|Soft Blue Hearts">
                         <div class="product-image"><img src="Phone charms front image final.jpg" alt="Colourful handmade phone charms"></div>
                         <div class="product-info"><h3>Phone Charms</h3><p>₹119</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
@@ -193,10 +205,6 @@
                     <a class="product-card" href="product.html?product=resin-keychain">
                         <div class="product-image"><img src="Keychain front image 2.jpg" alt="Handmade keychain"></div>
                         <div class="product-info"><h3>Keychain</h3><p>₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
-                    </a>
-                    <a class="product-card" href="product.html?product=hair-accessories">
-                        <div class="product-image"><img src="hair-accessory-preview.svg" alt="Hair accessories collection preview"></div>
-                        <div class="product-info"><h3>Hair Accessories</h3><p>From ₹99</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
                 </div>
             </section>
@@ -218,19 +226,83 @@
         const storedWishlist = JSON.parse(localStorage.getItem('vintoera-wishlist') || '[]');
         wishlistCount.textContent = Array.isArray(storedWishlist) ? storedWishlist.length : 0;
 
+        function editDistance(first, second) {
+            const distances = Array.from({ length: first.length + 1 }, (_, row) =>
+                Array.from({ length: second.length + 1 }, (_, column) => row === 0 ? column : column === 0 ? row : 0)
+            );
+            for (let row = 1; row <= first.length; row += 1) {
+                for (let column = 1; column <= second.length; column += 1) {
+                    const substitutionCost = first[row - 1] === second[column - 1] ? 0 : 1;
+                    distances[row][column] = Math.min(
+                        distances[row - 1][column] + 1,
+                        distances[row][column - 1] + 1,
+                        distances[row - 1][column - 1] + substitutionCost
+                    );
+                    if (row > 1 && column > 1 && first[row - 1] === second[column - 2] && first[row - 2] === second[column - 1]) {
+                        distances[row][column] = Math.min(distances[row][column], distances[row - 2][column - 2] + 1);
+                    }
+                }
+            }
+            return distances[first.length][second.length];
+        }
+
+        function searchTermMatches(queryTerm, productTerms) {
+            return productTerms.some((productTerm) => {
+                if (productTerm.includes(queryTerm)) return true;
+                if (queryTerm.length < 4 || productTerm.length < 4) return false;
+                const distance = editDistance(queryTerm, productTerm);
+                const maximumDistance = Math.max(queryTerm.length, productTerm.length) >= 8 ? 2 : 1;
+                return distance <= maximumDistance;
+            });
+        }
+
+        function isGenericSearchTerm(term, genericTerms) {
+            if (genericTerms.has(term)) return true;
+            if (term.length < 4) return false;
+            return [...genericTerms].some((genericTerm) => {
+                if (genericTerm.length < 4) return false;
+                const distance = editDistance(term, genericTerm);
+                return distance <= 1;
+            });
+        }
+
+        function searchTermsMatchText(queryTerms, text) {
+            const textTerms = text.toLowerCase().match(/[a-z0-9]+/g) || [];
+            return queryTerms.every((queryTerm) => searchTermMatches(queryTerm, textTerms));
+        }
+
         function filterProducts() {
-            const query = searchInput.value.trim().toLowerCase();
+            const ignoredTerms = new Set(['a', 'an', 'and', 'available', 'find', 'for', 'in', 'item', 'items', 'of', 'product', 'products', 'show', 'the']);
+            const queryTerms = (searchInput.value.toLowerCase().match(/[a-z0-9]+/g) || [])
+                .filter((term) => !isGenericSearchTerm(term, ignoredTerms));
+            const cards = [...document.querySelectorAll('.product-card')];
             let visibleProducts = 0;
-            document.querySelectorAll('.product-card').forEach((card) => {
-                const productText = `${card.querySelector('h3').textContent} ${card.querySelector('img').alt}`.toLowerCase();
-                const matches = !query || productText.includes(query);
+            cards.forEach((card) => {
+                const sectionTitle = card.closest('.collection-section')?.querySelector('.section-heading h2')?.textContent || '';
+                const originalHref = card.dataset.originalHref || card.getAttribute('href');
+                card.dataset.originalHref = originalHref;
+                const variants = (card.dataset.searchVariants || '').split('|').filter(Boolean);
+                const productText = `${card.querySelector('h3').textContent} ${card.querySelector('img').alt} ${originalHref} ${sectionTitle}`;
+                const matchingVariant = queryTerms.length
+                    ? variants.find((variant) => searchTermsMatchText(queryTerms, variant))
+                    : null;
+                const matches = queryTerms.length === 0
+                    || searchTermsMatchText(queryTerms, productText)
+                    || Boolean(matchingVariant);
                 card.hidden = !matches;
+                if (matches && matchingVariant) {
+                    const productUrl = new URL(originalHref, window.location.href);
+                    productUrl.searchParams.set(card.dataset.searchVariantParam || 'variant', matchingVariant);
+                    card.href = `${productUrl.pathname.split('/').pop()}${productUrl.search}`;
+                } else {
+                    card.href = originalHref;
+                }
                 if (matches) visibleProducts += 1;
             });
             document.querySelectorAll('.collection-section').forEach((section) => {
                 section.hidden = !section.querySelector('.product-card:not([hidden])');
             });
-            searchEmpty.hidden = visibleProducts > 0 || !query;
+            searchEmpty.hidden = visibleProducts > 0;
         }
 
         document.querySelectorAll('a[href="#new-arrivals"], a[href="#bestsellers"]').forEach((link) => {
@@ -244,6 +316,11 @@
         searchForm.addEventListener('submit', (event) => {
             event.preventDefault();
             filterProducts();
+            const visibleCards = [...document.querySelectorAll('.product-card:not([hidden])')];
+            if (visibleCards.length === 1) {
+                window.location.href = visibleCards[0].href;
+                return;
+            }
             document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
         });
 
