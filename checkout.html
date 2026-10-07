@@ -24,10 +24,14 @@
                 <p class="empty-cart" id="empty-cart" hidden>Your cart is waiting for something lovely.</p>
                 <div class="cart-total"><span>Total</span><strong id="cart-total">₹0</strong></div>
                 <a class="button continue-shopping" id="checkout-add-more-link" href="index.html#shop">Add more items <span aria-hidden="true">→</span></a>
+                <section class="saved-items-section" aria-labelledby="saved-for-later-title">
+                    <div class="saved-items-heading"><h3 id="saved-for-later-title">Saved for later</h3><span id="saved-for-later-count">0 items</span></div>
+                    <p class="saved-items-empty" id="saved-for-later-empty">Items you save from your cart will appear here.</p>
+                    <div id="saved-for-later-items"></div>
+                </section>
             </section>
             <section class="checkout-card">
                 <h2>Delivery details</h2>
-                <p>Enter your details so we can confirm your order and delivery on WhatsApp.</p>
                 <form class="customer-details-form" id="customer-details-form" action="https://wa.me/917708564234" method="get" target="_blank">
                     <label for="customer-name">Full name</label>
                     <input id="customer-name" type="text" autocomplete="name" required>
@@ -52,7 +56,12 @@
                 </form>
             </section>
         </div>
+        <p class="delivery-processing-note">Each order is carefully processed via WhatsApp.</p>
     </main>
+    <footer class="site-footer">
+        <a class="brand" href="index.html">Vintoera <span>by Vintage Alchemia</span></a>
+        <p>Something New. Just for You.</p>
+    </footer>
     <script>
         const shoppingReturn = sessionStorage.getItem('vintoera-shopping-return');
         if (shoppingReturn) {
@@ -62,13 +71,113 @@
                 document.getElementById('checkout-add-more-link').href = returnState.href;
             }
         }
-        let cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
+        const readStoredItems = (key) => {
+            const items = JSON.parse(localStorage.getItem(key) || '[]');
+            return Array.isArray(items) ? items : [];
+        };
+        let cartItems = readStoredItems('vintoera-cart');
+        let savedForLaterItems = readStoredItems('vintoera-saved-for-later');
         const cartList = document.getElementById('cart-items');
+        const priceAmount = (price) => Number(price.replace(/[^0-9.]/g, ''));
+        const itemQuantity = (item) => item.quantity || 1;
+
+        function persistCart() {
+            localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+        }
+
+        function persistSavedForLaterItems() {
+            localStorage.setItem('vintoera-saved-for-later', JSON.stringify(savedForLaterItems));
+        }
+
+        function moveItemToCart(item, sourceItems) {
+            const index = sourceItems.indexOf(item);
+            if (index === -1) return;
+            sourceItems.splice(index, 1);
+            const existingItem = cartItems.find((cartItem) => cartItem.name === item.name && cartItem.price === item.price);
+            if (existingItem) {
+                existingItem.quantity = itemQuantity(existingItem) + itemQuantity(item);
+                if (!existingItem.image) existingItem.image = item.image || legacyItemImages[item.name];
+            }
+            else cartItems.push(item);
+            persistCart();
+            persistSavedForLaterItems();
+            renderCart();
+        }
+
+        const legacyItemImages = {
+            'Huracan': 'car-frame-huracan.jpg',
+            'Keychain 04': 'Keychain front image 2.jpg',
+            'Blue Paw': 'Paw Blue.jpeg'
+        };
+
+        function createItemThumbnail(item) {
+            const thumbnail = document.createElement('span');
+            thumbnail.className = 'saved-item-thumbnail';
+            const source = item.image || legacyItemImages[item.name];
+            if (source) {
+                const image = document.createElement('img');
+                image.src = source;
+                image.alt = '';
+                image.addEventListener('error', () => thumbnail.classList.add('image-unavailable'), { once: true });
+                thumbnail.appendChild(image);
+            } else {
+                thumbnail.classList.add('image-unavailable');
+                thumbnail.textContent = '✧';
+            }
+            return thumbnail;
+        }
+
+        function renderSavedItems(items, listId, countId, emptyId, storageKey) {
+            const list = document.getElementById(listId);
+            list.replaceChildren();
+            const empty = document.getElementById(emptyId);
+            const count = items.reduce((sum, item) => sum + itemQuantity(item), 0);
+            document.getElementById(countId).textContent = `${count} ${count === 1 ? 'item' : 'items'}`;
+            empty.hidden = items.length > 0;
+            items.forEach((item) => {
+                const row = document.createElement('div');
+                row.className = 'saved-item-row';
+                const thumbnail = createItemThumbnail(item);
+                const details = document.createElement('span');
+                details.className = 'cart-item-details';
+                details.append(document.createTextNode(item.name));
+                const itemPrice = document.createElement('small');
+                itemPrice.textContent = `${item.price} · Qty ${itemQuantity(item)}`;
+                details.appendChild(itemPrice);
+                const actions = document.createElement('div');
+                actions.className = 'saved-item-actions';
+                const moveButton = document.createElement('button');
+                moveButton.className = 'saved-item-icon';
+                moveButton.type = 'button';
+                moveButton.textContent = '🛒';
+                moveButton.setAttribute('aria-label', `Move ${item.name} to cart`);
+                moveButton.title = 'Move to cart';
+                moveButton.addEventListener('click', () => {
+                    moveItemToCart(item, items);
+                });
+                const removeButton = document.createElement('button');
+                removeButton.className = 'saved-item-icon saved-item-remove';
+                removeButton.type = 'button';
+                removeButton.textContent = '×';
+                removeButton.setAttribute('aria-label', `Remove ${item.name} from ${storageKey === 'vintoera-wishlist' ? 'wishlist' : 'saved for later'}`);
+                removeButton.title = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    const index = items.indexOf(item);
+                    if (index === -1) return;
+                    items.splice(index, 1);
+                    localStorage.setItem(storageKey, JSON.stringify(items));
+                    renderSavedItems(items, listId, countId, emptyId, storageKey);
+                });
+                actions.append(moveButton, removeButton);
+                row.append(thumbnail, details, actions);
+                list.appendChild(row);
+            });
+        }
 
         function renderCart() {
             cartList.innerHTML = '';
             const pieceCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            const total = cartItems.reduce((sum, item) => sum + Number(item.price.replace(/[^0-9.]/g, '')) * (item.quantity || 1), 0);
+            const total = cartItems.reduce((sum, item) => sum + priceAmount(item.price) * itemQuantity(item), 0);
             document.getElementById('item-count').textContent = `${pieceCount} ${pieceCount === 1 ? 'piece' : 'pieces'}`;
             document.getElementById('cart-total').textContent = `₹${total}`;
             document.getElementById('empty-cart').hidden = cartItems.length > 0;
@@ -76,9 +185,10 @@
             cartItems.forEach((item, index) => {
                 const row = document.createElement('div');
                 row.className = 'cart-row';
-                const quantity = item.quantity || 1;
-                const lineTotal = Number(item.price.replace(/[^0-9.]/g, '')) * quantity;
-                const unitPrice = Number(item.price.replace(/[^0-9.]/g, ''));
+                const quantity = itemQuantity(item);
+                const lineTotal = priceAmount(item.price) * quantity;
+                const unitPrice = priceAmount(item.price);
+                const thumbnail = createItemThumbnail(item);
                 const details = document.createElement('span');
                 details.className = 'cart-item-details';
                 details.append(document.createTextNode(item.name));
@@ -105,22 +215,50 @@
                 increaseButton.textContent = '+';
                 increaseButton.setAttribute('aria-label', `Increase quantity of ${item.name}`);
                 quantityControls.append(decreaseButton, quantityLabel, increaseButton);
+                const saveForLaterButton = document.createElement('button');
+                saveForLaterButton.className = 'text-action text-action-muted cart-save-button';
+                saveForLaterButton.type = 'button';
+                saveForLaterButton.textContent = 'Save for later';
+                saveForLaterButton.addEventListener('click', () => {
+                    cartItems.splice(index, 1);
+                    const existingSavedItem = savedForLaterItems.find((savedItem) => savedItem.name === item.name && savedItem.price === item.price);
+                    if (existingSavedItem) existingSavedItem.quantity = itemQuantity(existingSavedItem) + quantity;
+                    else savedForLaterItems.push(item);
+                    persistCart();
+                    persistSavedForLaterItems();
+                    renderCart();
+                });
+                const removeButton = document.createElement('button');
+                removeButton.className = 'saved-item-icon saved-item-remove';
+                removeButton.type = 'button';
+                removeButton.textContent = '×';
+                removeButton.setAttribute('aria-label', `Remove ${item.name} from cart`);
+                removeButton.title = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    cartItems.splice(index, 1);
+                    persistCart();
+                    renderCart();
+                });
 
                 decreaseButton.addEventListener('click', () => {
                     if (quantity === 1) cartItems.splice(index, 1);
                     else item.quantity = quantity - 1;
-                    localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+                    persistCart();
                     renderCart();
                 });
                 increaseButton.addEventListener('click', () => {
                     item.quantity = quantity + 1;
-                    localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+                    persistCart();
                     renderCart();
                 });
 
-                row.append(details, totalLabel, quantityControls);
+                const controls = document.createElement('div');
+                controls.className = 'cart-row-controls';
+                controls.append(quantityControls, saveForLaterButton, removeButton);
+                row.append(thumbnail, details, totalLabel, controls);
                 cartList.appendChild(row);
             });
+            renderSavedItems(savedForLaterItems, 'saved-for-later-items', 'saved-for-later-count', 'saved-for-later-empty', 'vintoera-saved-for-later');
         }
 
         document.getElementById('customer-details-form').addEventListener('submit', (event) => {
@@ -134,9 +272,9 @@
             const city = document.getElementById('delivery-city').value.trim();
             const state = document.getElementById('delivery-state').value.trim();
             const postalCode = document.getElementById('delivery-postal-code').value.trim();
-            const total = cartItems.reduce((sum, item) => sum + Number(item.price.replace(/[^0-9.]/g, '')) * (item.quantity || 1), 0);
+            const total = cartItems.reduce((sum, item) => sum + priceAmount(item.price) * itemQuantity(item), 0);
             const orderText = [
-                'Hi Vintoera, I would like to place an order.',
+                'Hi Vintoera, I confirm this order. Please coordinate delivery and payment with me via WhatsApp.',
                 `Name: ${customerName}`,
                 `Delivery address: ${address}, ${city}, ${state} ${postalCode}`,
                 `Items: ${cartItems.map((item) => `${item.name} x${item.quantity || 1} (unit price ${item.price})`).join(', ')}`,

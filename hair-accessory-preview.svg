@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" role="img" aria-labelledby="title">
+  <title id="title">Hair accessories collection preview</title>
+  <rect width="800" height="900" fill="#f2e8dc"/>
+  <circle cx="400" cy="450" r="262" fill="#fbf8f2"/>
+  <g stroke="#7b4333" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M275 313c-16-43-8-85 25-111 28 47 51 69 100 69s72-22 100-69c33 26 41 68 25 111l-41 112H316z" fill="#c27b61"/>
+    <path d="M317 422c-6 51 29 102 83 102s89-51 83-102l-23-26H340z" fill="#d7a47d"/>
+    <path d="M341 397c-35 15-56 46-56 81 32-4 55-19 71-43m103-38c35 15 56 46 56 81-32-4-55-19-71-43" fill="none"/>
+    <path d="M360 523l-24 82m104-82 24 82" fill="none"/>
+  </g>
+  <circle cx="400" cy="365" r="16" fill="#f4dfc6"/>
+  <path d="M400 339v52m-26-26h52" stroke="#f4dfc6" stroke-width="9" stroke-linecap="round"/>
+  <text x="400" y="718" fill="#765548" font-family="Georgia,serif" font-size="34" text-anchor="middle" letter-spacing="4">HAIR ACCESSORIES</text>
+  <text x="400" y="762" fill="#9a7868" font-family="Arial,sans-serif" font-size="20" text-anchor="middle" letter-spacing="3">COLLECTION PREVIEW</text>
+</svg>

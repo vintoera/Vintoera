@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintoera | Wishlist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
+        <a class="back-link" href="index.html#shop"><span aria-hidden="true">←</span> Continue shopping</a>
+        <div class="header-actions">
+            <a class="header-icon-button active" href="wishlist.html" aria-label="Wishlist" aria-current="page"><span aria-hidden="true">♡</span><span class="cart-badge" id="wishlist-count">0</span></a>
+            <button class="cart-button" type="button" aria-label="Shopping cart" onclick="window.location.href='checkout.html'"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge" id="cart-count">0</span></button>
+        </div>
+    </header>
+    <main class="checkout-page wishlist-page">
+        <p class="eyebrow">Your saved favourites</p>
+        <h1>Wishlist</h1>
+        <section class="wishlist-list" aria-label="Wishlist items">
+            <p class="empty-cart" id="wishlist-empty">Your wishlist is waiting for something lovely.</p>
+            <div id="wishlist-items"></div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <a class="brand" href="index.html">Vintoera <span>by Vintage Alchemia</span></a>
+        <p>Something New. Just for You.</p>
+    </footer>
+    <script>
+        const readItems = (key) => {
+            const items = JSON.parse(localStorage.getItem(key) || '[]');
+            return Array.isArray(items) ? items : [];
+        };
+        let wishlistItems = readItems('vintoera-wishlist');
+        const cartItems = readItems('vintoera-cart');
+        const itemQuantity = (item) => item.quantity || 1;
+        const legacyItemImages = {
+            'Huracan': 'car-frame-huracan.jpg',
+            'Keychain 04': 'Keychain front image 2.jpg',
+            'Blue Paw': 'Paw Blue.jpeg'
+        };
+
+        function renderWishlist() {
+            const list = document.getElementById('wishlist-items');
+            list.replaceChildren();
+            document.getElementById('wishlist-count').textContent = wishlistItems.length;
+            document.getElementById('cart-count').textContent = cartItems.reduce((sum, item) => sum + itemQuantity(item), 0);
+            document.getElementById('wishlist-empty').hidden = wishlistItems.length > 0;
+            wishlistItems.forEach((item, index) => {
+                const row = document.createElement('article');
+                row.className = 'wishlist-item';
+                const thumbnail = document.createElement('span');
+                thumbnail.className = 'saved-item-thumbnail';
+                const thumbnailSource = item.image || legacyItemImages[item.name];
+                if (thumbnailSource) {
+                    const image = document.createElement('img');
+                    image.src = thumbnailSource;
+                    image.alt = '';
+                    image.addEventListener('error', () => thumbnail.classList.add('image-unavailable'), { once: true });
+                    thumbnail.appendChild(image);
+                } else {
+                    thumbnail.classList.add('image-unavailable');
+                    thumbnail.textContent = '✧';
+                }
+                const details = document.createElement('a');
+                details.className = 'cart-item-details wishlist-item-details';
+                details.href = item.href || 'index.html#shop';
+                details.textContent = item.name;
+                details.addEventListener('click', () => {
+                    if (item.href) {
+                        sessionStorage.setItem('vintoera-shopping-return', JSON.stringify({
+                            href: item.href,
+                            variantName: item.variantName || '',
+                            posterSizeName: item.posterSizeName || '',
+                            scrollY: 0
+                        }));
+                    }
+                });
+                const price = document.createElement('small');
+                price.textContent = `${item.price} · Qty ${itemQuantity(item)}`;
+                details.appendChild(price);
+                const actions = document.createElement('div');
+                actions.className = 'saved-item-actions';
+                const moveButton = document.createElement('button');
+                moveButton.className = 'saved-item-icon';
+                moveButton.type = 'button';
+                moveButton.textContent = '🛒';
+                moveButton.setAttribute('aria-label', `Move ${item.name} to cart`);
+                moveButton.title = 'Move to cart';
+                moveButton.addEventListener('click', () => {
+                    const [wishlistItem] = wishlistItems.splice(index, 1);
+                    const existingItem = cartItems.find((cartItem) => cartItem.name === wishlistItem.name && cartItem.price === wishlistItem.price);
+                    if (existingItem) existingItem.quantity = itemQuantity(existingItem) + itemQuantity(wishlistItem);
+                    else cartItems.push(wishlistItem);
+                    if (existingItem && !existingItem.image) existingItem.image = wishlistItem.image;
+                    localStorage.setItem('vintoera-wishlist', JSON.stringify(wishlistItems));
+                    localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
+                    renderWishlist();
+                });
+                const removeButton = document.createElement('button');
+                removeButton.className = 'saved-item-icon saved-item-remove';
+                removeButton.type = 'button';
+                removeButton.textContent = '×';
+                removeButton.setAttribute('aria-label', `Remove ${item.name} from wishlist`);
+                removeButton.title = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    wishlistItems.splice(index, 1);
+                    localStorage.setItem('vintoera-wishlist', JSON.stringify(wishlistItems));
+                    renderWishlist();
+                });
+                actions.append(moveButton, removeButton);
+                row.append(thumbnail, details, actions);
+                list.appendChild(row);
+            });
+        }
+
+        renderWishlist();
+    </script>
+</body>
+</html>

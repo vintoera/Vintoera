@@ -19,13 +19,17 @@
             <a href="#bestsellers">Bestsellers</a>
             <a href="#about">Our story</a>
             <a href="https://www.instagram.com/vintoera?stkn=NDZ3bmsxb2o0eTZz" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            <a href="https://wa.me/917708564234" target="_blank" rel="noreferrer">Reach us <span aria-hidden="true">↗</span></a>
         </nav>
         <div class="header-tools">
             <form class="search-box" id="product-search-form" role="search">
                 <button type="submit" aria-label="Search products">⌕</button>
                 <input id="product-search" type="search" placeholder="Search" aria-label="Search products">
             </form>
-            <button class="cart-button" type="button" aria-label="Shopping cart" onclick="window.location.href='checkout.html'"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge" id="cart-count">0</span></button>
+            <div class="header-actions">
+                <a class="header-icon-button" href="wishlist.html" aria-label="Wishlist"><span aria-hidden="true">♡</span><span class="cart-badge" id="wishlist-count">0</span></a>
+                <button class="cart-button" type="button" aria-label="Shopping cart" onclick="window.location.href='checkout.html'"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge" id="cart-count">0</span></button>
+            </div>
         </div>
     </header>
     <main>
@@ -190,6 +194,10 @@
                         <div class="product-image"><img src="Keychain front image 2.jpg" alt="Handmade keychain"></div>
                         <div class="product-info"><h3>Keychain</h3><p>₹30</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
                     </a>
+                    <a class="product-card" href="product.html?product=hair-accessories">
+                        <div class="product-image"><img src="hair-accessory-preview.svg" alt="Hair accessories collection preview"></div>
+                        <div class="product-info"><h3>Hair Accessories</h3><p>From ₹99</p><span class="view-link">Explore collection <span aria-hidden="true">↗</span></span></div>
+                    </a>
                 </div>
             </section>
             <p class="search-empty" id="search-empty" role="status" hidden>No products match your search.</p>
@@ -197,8 +205,7 @@
     </main>
     <footer class="site-footer">
         <a class="brand" href="index.html">Vintoera <span>by Vintage Alchemia</span></a>
-        <p>Made for your daily rituals.</p>
-        <a href="https://wa.me/917708564234" target="_blank" rel="noreferrer">Chat with us on WhatsApp <span aria-hidden="true">↗</span></a>
+        <p>Something New. Just for You.</p>
     </footer>
     <script>
         const searchInput = document.getElementById('product-search');
@@ -207,6 +214,9 @@
         const cartCount = document.getElementById('cart-count');
         const cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
         cartCount.textContent = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const wishlistCount = document.getElementById('wishlist-count');
+        const storedWishlist = JSON.parse(localStorage.getItem('vintoera-wishlist') || '[]');
+        wishlistCount.textContent = Array.isArray(storedWishlist) ? storedWishlist.length : 0;
 
         function filterProducts() {
             const query = searchInput.value.trim().toLowerCase();
