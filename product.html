@@ -445,6 +445,7 @@
 		let selectedVariant = null;
 		let selectedPosterSize = null;
 		let restoringShoppingReturn = false;
+		let restoringPosterHistory = false;
 		let quantity = 1;
 		const quantityValue = document.getElementById('quantity-value');
 		const quantityTotal = document.getElementById('quantity-total');
@@ -558,50 +559,37 @@
 
 		if (product.posterSizes) {
 			posterSizePicker.hidden = false;
+			const initialPosterHistoryState = history.state && typeof history.state === 'object' ? history.state : {};
+			history.replaceState({ ...initialPosterHistoryState, vintoeraPosterSize: null }, '');
 			document.getElementById('product-price').textContent = 'Choose a poster size';
 			quantitySummaryLabel.textContent = 'Select a poster design';
 			quantityTotal.textContent = '—';
 			addToCartButton.disabled = true;
 			updateOrderLink();
-			product.posterSizes.forEach((size) => {
-				const option = document.createElement('button');
-				option.className = 'variant-option';
-				option.type = 'button';
-				const optionImage = document.createElement('img');
-				optionImage.className = 'variant-thumb';
-				optionImage.src = size.image;
-				optionImage.alt = size.name;
-				const optionName = document.createElement('span');
-				optionName.textContent = size.name;
-				const optionPrice = document.createElement('strong');
-				optionPrice.textContent = `20 designs · from ${size.price}`;
-				option.append(optionImage, optionName, optionPrice);
-				option.addEventListener('click', () => {
-					selectedPosterSize = size;
-					selectedVariant = null;
-					posterSizePicker.hidden = true;
-					variantPicker.hidden = false;
-					posterSizeBackButton.hidden = false;
-					variantPicker.querySelector('.variant-label').textContent = `Choose a design · ${size.name}`;
-					document.getElementById('product-name').textContent = size.name;
-					document.getElementById('crumb-name').textContent = size.name;
-					document.title = `Vintoera | ${size.name}`;
-					document.getElementById('product-price').textContent = `${size.price} per piece`;
-					document.getElementById('product-description').textContent = size.description;
-					renderProductDetails(product.details);
-					currentImages = [size.image];
-					currentImageIndex = 0;
-					showCurrentImage();
-					productImage.alt = size.name;
-					addToCartButton.disabled = true;
-					quantitySummaryLabel.textContent = 'Select a poster design';
-					quantityTotal.textContent = '—';
-					renderVariantOptions(size.posters);
-					updateOrderLink();
-				});
-				posterSizeOptions.appendChild(option);
-			});
-			posterSizeBackButton.addEventListener('click', () => {
+			function showPosterSize(size) {
+				selectedPosterSize = size;
+				selectedVariant = null;
+				posterSizePicker.hidden = true;
+				variantPicker.hidden = false;
+				posterSizeBackButton.hidden = false;
+				variantPicker.querySelector('.variant-label').textContent = `Choose a design · ${size.name}`;
+				document.getElementById('product-name').textContent = size.name;
+				document.getElementById('crumb-name').textContent = size.name;
+				document.title = `Vintoera | ${size.name}`;
+				document.getElementById('product-price').textContent = `${size.price} per piece`;
+				document.getElementById('product-description').textContent = size.description;
+				renderProductDetails(product.details);
+				currentImages = [size.image];
+				currentImageIndex = 0;
+				showCurrentImage();
+				productImage.alt = size.name;
+				addToCartButton.disabled = true;
+				quantitySummaryLabel.textContent = 'Select a poster design';
+				quantityTotal.textContent = '—';
+				renderVariantOptions(size.posters);
+				updateOrderLink();
+			}
+			function showPosterSizes() {
 				selectedPosterSize = null;
 				selectedVariant = null;
 				posterSizePicker.hidden = false;
@@ -621,6 +609,47 @@
 				quantitySummaryLabel.textContent = 'Select a poster design';
 				quantityTotal.textContent = '—';
 				updateOrderLink();
+			}
+			product.posterSizes.forEach((size) => {
+				const option = document.createElement('button');
+				option.className = 'variant-option';
+				option.type = 'button';
+				const optionImage = document.createElement('img');
+				optionImage.className = 'variant-thumb';
+				optionImage.src = size.image;
+				optionImage.alt = size.name;
+				const optionName = document.createElement('span');
+				optionName.textContent = size.name;
+				const optionPrice = document.createElement('strong');
+				optionPrice.textContent = `20 designs · from ${size.price}`;
+				option.append(optionImage, optionName, optionPrice);
+				option.addEventListener('click', () => {
+					if (!restoringShoppingReturn && !restoringPosterHistory) {
+						history.pushState({ ...history.state, vintoeraPosterSize: size.name }, '');
+					}
+					showPosterSize(size);
+				});
+				posterSizeOptions.appendChild(option);
+			});
+			posterSizeBackButton.addEventListener('click', () => {
+				if (history.state && history.state.vintoeraPosterSize) {
+					history.back();
+				} else {
+					showPosterSizes();
+				}
+			});
+			window.addEventListener('popstate', (event) => {
+				const posterSizeName = event.state && event.state.vintoeraPosterSize;
+				if (posterSizeName) {
+					const size = product.posterSizes.find((item) => item.name === posterSizeName);
+					if (size && (!selectedPosterSize || selectedPosterSize.name !== size.name)) {
+						restoringPosterHistory = true;
+						showPosterSize(size);
+						restoringPosterHistory = false;
+					}
+				} else if (selectedPosterSize) {
+					showPosterSizes();
+				}
 			});
 		} else if (product.variants) {
 			variantPicker.hidden = false;
