@@ -13,7 +13,7 @@
 	<header class="site-header">
 		<a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
 		<a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to collection</a>
-		<button class="cart-button" id="product-cart-count" type="button" aria-label="Shopping cart" onclick="window.location.href='checkout.html'"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge">0</span></button>
+		<button class="cart-button" id="product-cart-count" type="button" aria-label="Shopping cart"><span class="cart-icon" aria-hidden="true">🛒</span><span class="cart-badge">0</span></button>
 	</header>
 	<main class="detail-page">
 		<a class="breadcrumb" href="index.html">Collection / <span id="crumb-name">Anti-Tarnish Chain</span></a>
@@ -392,6 +392,7 @@
 		};
 		const product = products[new URLSearchParams(window.location.search).get('product')] || products.chain;
 		const productImage = document.getElementById('product-image');
+		const productImagePanel = productImage.closest('.detail-image');
 		const posterSizePicker = document.getElementById('poster-size-picker');
 		const posterSizeOptions = document.getElementById('poster-size-options');
 		const posterSizeBackButton = document.getElementById('poster-size-back');
@@ -443,6 +444,7 @@
 		productCartCount.textContent = getCartPieces(JSON.parse(localStorage.getItem('vintoera-cart') || '[]'));
 		let selectedVariant = null;
 		let selectedPosterSize = null;
+		let restoringShoppingReturn = false;
 		let quantity = 1;
 		const quantityValue = document.getElementById('quantity-value');
 		const quantityTotal = document.getElementById('quantity-total');
@@ -465,6 +467,18 @@
 			updateQuantitySummary();
 			updateOrderLink();
 		});
+		function saveShoppingReturn() {
+			sessionStorage.setItem('vintoera-shopping-return', JSON.stringify({
+				href: `${window.location.pathname.split('/').pop()}${window.location.search}${window.location.hash}`,
+				variantName: selectedVariant ? selectedVariant.name : '',
+				posterSizeName: selectedPosterSize ? selectedPosterSize.name : '',
+				scrollY: window.scrollY
+			}));
+		}
+		document.getElementById('product-cart-count').addEventListener('click', () => {
+			saveShoppingReturn();
+			window.location.href = 'checkout.html';
+		});
 		addToCartButton.addEventListener('click', () => {
 			if (addToCartButton.disabled) return;
 			const cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
@@ -477,6 +491,7 @@
 			else cartItems.push({ name: itemName, price: itemPrice, quantity });
 			localStorage.setItem('vintoera-cart', JSON.stringify(cartItems));
 			productCartCount.textContent = getCartPieces(cartItems);
+			saveShoppingReturn();
 			window.location.href = 'checkout.html';
 		});
 
@@ -525,6 +540,10 @@
 					currentImageIndex = 0;
 					showCurrentImage();
 					productImage.alt = displayName;
+					const imageBounds = productImagePanel.getBoundingClientRect();
+					if (!restoringShoppingReturn && (imageBounds.top < 0 || imageBounds.bottom > window.innerHeight)) {
+						productImagePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
 					document.getElementById('product-description').textContent = variant.description || product.description;
 					renderProductDetails(variant.details || product.details);
 					variantOptions.querySelectorAll('.variant-option').forEach((item) => item.classList.remove('selected'));
@@ -611,6 +630,32 @@
 			updateQuantitySummary();
 			document.getElementById('product-price').textContent = `${product.price} per piece`;
 			updateOrderLink();
+		}
+
+		const shoppingReturnValue = sessionStorage.getItem('vintoera-shopping-return');
+		if (shoppingReturnValue) {
+			const shoppingReturn = JSON.parse(shoppingReturnValue);
+			const returnUrl = new URL(shoppingReturn.href, window.location.href);
+			if (returnUrl.pathname === window.location.pathname && returnUrl.search === window.location.search) {
+				restoringShoppingReturn = true;
+				if (shoppingReturn.posterSizeName && product.posterSizes) {
+					const sizeOption = [...posterSizeOptions.querySelectorAll('.variant-option')]
+						.find((option) => option.querySelector('span').textContent === shoppingReturn.posterSizeName);
+					if (sizeOption) {
+						sizeOption.click();
+					}
+				}
+				if (shoppingReturn.variantName) {
+					const variantOption = [...variantOptions.querySelectorAll('.variant-option')]
+						.find((option) => option.querySelector('span').textContent === shoppingReturn.variantName);
+					if (variantOption) {
+						variantOption.click();
+					}
+				}
+				restoringShoppingReturn = false;
+				sessionStorage.removeItem('vintoera-shopping-return');
+				requestAnimationFrame(() => window.scrollTo(0, shoppingReturn.scrollY || 0));
+			}
 		}
 	</script>
 </body>

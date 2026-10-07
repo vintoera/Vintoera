@@ -12,7 +12,7 @@
 <body>
     <header class="site-header">
         <a class="brand" href="index.html" aria-label="Vintoera by Vintage Alchemia home">Vintoera <span>by Vintage Alchemia</span></a>
-        <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Continue shopping</a>
+        <a class="back-link" id="checkout-return-link" href="index.html"><span aria-hidden="true">←</span> Continue shopping</a>
     </header>
     <main class="checkout-page">
         <p class="eyebrow">Your selection</p>
@@ -23,7 +23,7 @@
                 <div id="cart-items"></div>
                 <p class="empty-cart" id="empty-cart" hidden>Your cart is waiting for something lovely.</p>
                 <div class="cart-total"><span>Total</span><strong id="cart-total">₹0</strong></div>
-                <a class="button continue-shopping" href="index.html#shop">Add more items <span aria-hidden="true">→</span></a>
+                <a class="button continue-shopping" id="checkout-add-more-link" href="index.html#shop">Add more items <span aria-hidden="true">→</span></a>
             </section>
             <section class="checkout-card">
                 <h2>Delivery details</h2>
@@ -54,6 +54,14 @@
         </div>
     </main>
     <script>
+        const shoppingReturn = sessionStorage.getItem('vintoera-shopping-return');
+        if (shoppingReturn) {
+            const returnState = JSON.parse(shoppingReturn);
+            if (returnState.href) {
+                document.getElementById('checkout-return-link').href = returnState.href;
+                document.getElementById('checkout-add-more-link').href = returnState.href;
+            }
+        }
         let cartItems = JSON.parse(localStorage.getItem('vintoera-cart') || '[]');
         const cartList = document.getElementById('cart-items');
 
